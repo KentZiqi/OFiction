@@ -1,3 +1,12 @@
 .idea/*
 .DS_Store
 *.pyc
+db.sqlite3
+
+ColaFiction/static/CACHE
+ColaFiction/static/admin
+ColaFiction/static/bootstrap
+ColaFiction/static/fonts
+ColaFiction/static/js
+ColaFiction/static/_bootstrap.scss
+ve
