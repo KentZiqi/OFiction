@@ -12,9 +12,9 @@
             <button type="button" class="btn btn-default">50</button>
         </div>
         <div class="btn-group">
-        <a href="{% url 'storyline' %}">
-            <button class="btn btn-default btn-primary">See entire storyline</button>
-        </a>
+            <a href="{% url 'storyline' %}">
+                <button class="btn btn-default btn-primary">See entire storyline</button>
+            </a>
         </div>
     </div>
     <h1>Kent/NVC/Episode-4</h1>
@@ -22,7 +22,7 @@
     <hr/>
     <button class="btn btn-default btn-primary pull-right">Edit Episode</button>
     <h2>Episode 4</h2>
-    <br />
+    <br/>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor eros vitae diam ultrices porta. Praesent in
         sapien ex. Duis non blandit libero, id sodales orci. Integer nisi massa, interdum non convallis ut, efficitur a
         risus. Vestibulum eu augue eu purus interdum consequat. Maecenas sit amet felis vitae sapien faucibus porta sed
@@ -54,4 +54,27 @@
         purus lacinia, feugiat nunc et, fermentum dolor. Maecenas tempor lacus massa, a iaculis ex ornare sed.
         Vestibulum porttitor velit sed eros rutrum tempus. Vestibulum imperdiet lorem quis dignissim venenatis. Nullam
         nec metus condimentum, tristique metus at, porta justo. In dignissim eget mauris sed ornare.</p>
+    <hr/>
+    <h3>Comments</h3>
+    <blockquote>Ziqi on 7:13 Oct 10, 2015</blockquote>
+    <p>Suspendisse finibus dui dolor, eu pellentesque nisi bibendum et. Aenean ligula urna, pulvinar iaculis odio
+        vitae, auctor iaculis enim. Fusce auctor in lectus sed ornare. Duis a scelerisque nisi. Cras ultrices dui id
+        massa blandit efficitur. Cras est dui, maximus eu vehicula a, varius at ligula. Duis ut volutpat ipsum. Donec ac
+        purus lacinia, feugiat nunc et, fermentum dolor. Maecenas tempor lacus massa, a iaculis ex ornare sed.
+        Vestibulum porttitor velit sed eros rutrum tempus. Vestibulum imperdiet lorem quis dignissim venenatis. Nullam
+        nec metus condimentum, tristique metus at, porta justo. In dignissim eget mauris sed ornare.</p>
+    <blockquote>Kent on 8:15 Oct 11, 2015</blockquote>
+    <p>Suspendisse finibus dui dolor, eu pellentesque nisi bibendum et. Aenean ligula urna, pulvinar iaculis odio
+        vitae, auctor iaculis enim. Fusce auctor in lectus sed ornare. Duis a scelerisque nisi. Cras ultrices dui id
+        massa blandit efficitur. Cras est dui, maximus eu vehicula a, varius at ligula. Duis ut volutpat ipsum. Donec ac
+        purus lacinia, feugiat nunc et, fermentum dolor. Maecenas tempor lacus massa, a iaculis ex ornare sed.
+        Vestibulum porttitor velit sed eros rutrum tempus. Vestibulum imperdiet lorem quis dignissim venenatis. Nullam
+        nec metus condimentum, tristique metus at, porta justo. In dignissim eget mauris sed ornare.</p>
+    <form role="form">
+            <h4>Create New Comment</h4>
+            <textarea class="form-control" rows="5" id="comment"></textarea>
+            <br />
+            <button type="submit" class="btn btn-default btn-block btn-primary">Comment</button>
+    </form>
+    <div class="margin20"></div>
 {% endblock %}
