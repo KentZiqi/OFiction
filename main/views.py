@@ -7,8 +7,8 @@ def home(request):
 def notifications(request):
     return render(request, 'notifications.html', {})
 
-def work(request):
-    return render(request, 'work.html', {})
+def episode(request):
+    return render(request, 'episode.html', {})
 
 def profile(request):
     return render(request, 'profile.html', {})
@@ -21,3 +21,9 @@ def storyline(request):
 
 def settings(request):
     return render(request, 'settings.html', {})
+
+def sign_in(request):
+    return render(request, 'sign_in.html', {})
+
+def sign_up(request):
+    return render(request, 'sign_up.html', {})

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>Sign Up</h1>
+<br/>
+<div class="account-form">
+    <form role="form">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="email">Choose Email:</label>
+                <input type="email" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Choose Password:</label>
+                <input type="password" class="form-control" id="password">
+            </div>
+            <div class="form-group">
+                <label for="password-confirm">Password Confirmation:</label>
+                <input type="password" class="form-control" id="password-confirm">
+            </div>
+            <button type="submit" class="btn btn-default btn-block btn-primary">Sign up</button>
+        </div>
+        <div class="col-md-6"></div>
+    </form>
+</div>
+{% endblock %}
