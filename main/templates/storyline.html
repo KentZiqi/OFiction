@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <script src="{% static "js/jsPlumb-1.7.10.js" %}"></script>
+    <script src="{% static "js/storyline.js" %}"></script>
+{% endblock %}
+
+{% block body %}
+    <row>
+        <div class="col-md-5">
+            <h1>Storylines</h1>
+            <br/>
+            <div class="tree" id="canvas">
+                <div id="node-1-container">
+                    <div class="circle" id="node-1"></div>
+                    <span class="node-text">Kent/NVC/Episode1</span>
+                </div>
+                <div id="node-2-container">
+                    <div class="circle" id="node-2"></div>
+                    <span class="node-text">Kent/NVC/Episode2</span>
+                </div>
+                <div id="node-3-container">
+                    <div class="circle" id="node-3"></div>
+                    <span class="node-text">Kent/NVC/Episode3</span>
+                </div>
+                <div id="node-4-container">
+                    <div class="circle active" id="node-4"></div>
+                    <a href="{% url 'work' %}" class="node-text"><span>Kent/NVC/Episode4</span></a>
+                </div>
+                <div id="node-5-container">
+                    <div class="circle" id="node-5"></div>
+                    <span class="node-text">ZQ/NVC/Episode4</span>
+                </div>
+                <div id="node-6-container">
+                    <div class="circle" id="node-6"></div>
+                    <span class="node-text">Kent/NVC/Episode5</span>
+                </div>
+                <div id="node-7-container">
+                    <div class="circle" id="node-7"></div>
+                    <span class="node-text">ZQ/NVC/Episode5</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <h1>NVC</h1>
+            <h2>Episode 1</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor eros vitae diam ultrices porta.
+                Praesent in
+                sapien ex. Duis non blandit libero, id sodales orci. Integer nisi massa, interdum non convallis ut,
+                efficitur a
+                risus. Vestibulum eu augue eu purus interdum consequat. Maecenas sit amet felis vitae sapien faucibus
+                porta sed
+                eu tortor. Sed consectetur consequat nunc, non tempus mauris sollicitudin eu. Fusce condimentum aliquam
+                dictum.
+                Aenean ut ligula semper, pretium urna quis, euismod quam. Donec non dui urna. Ut scelerisque vestibulum
+                quam, id
+                fermentum arcu maximus in.</p>
+
+            <p>Quisque diam erat, sagittis ac ex vitae, maximus fermentum nunc. Proin congue arcu ut ante elementum,
+                laoreet
+                lobortis orci sagittis. Duis at tortor eu justo fermentum euismod sit amet iaculis ipsum. Interdum et
+                malesuada
+                fames ac ante ipsum primis in faucibus. Sed sodales dui et justo aliquam, lacinia malesuada velit
+                imperdiet. Sed
+                eget ligula urna. Donec ut mauris quis felis mattis pellentesque. Pellentesque sit amet felis quis augue
+                consectetur gravida id eget diam. Cras nec convallis odio, et semper nisl.</p>
+
+            <p>Quisque sit amet ligula est. Quisque ultrices tempus nisi, eu euismod diam pretium et. Vestibulum
+                molestie a
+                ligula hendrerit ultrices. Duis accumsan pulvinar nisi, at pellentesque justo accumsan quis. Proin
+                tempor nisi
+                in efficitur tempor. Donec quis sollicitudin sapien. Vestibulum sit amet malesuada lacus. Etiam at
+                turpis mi.
+                Pellentesque at dictum ex. Integer in tincidunt erat. Nullam varius, felis sed placerat lobortis, tortor
+                sem
+                euismod massa, ac ornare dui quam ut dolor. Nunc eget erat magna.</p>
+
+            <p>Integer a nunc id dui facilisis laoreet at a ante. Phasellus ac ornare dolor, sed imperdiet diam. Quisque
+                dignissim mollis tellus et interdum. Quisque pharetra arcu vel diam cursus, et imperdiet sapien mattis.
+                Proin
+                tortor dolor, feugiat et metus sed, imperdiet dignissim lacus. Donec semper finibus justo, in venenatis
+                dolor
+                mollis vitae. Maecenas et nulla elementum sapien convallis molestie et vitae arcu. Donec pretium mauris
+                ut nibh
+                tristique mattis. Nullam feugiat tincidunt ornare. Donec eleifend justo in leo consectetur, quis
+                molestie magna
+                hendrerit.</p>
+
+            <p>Suspendisse finibus dui dolor, eu pellentesque nisi bibendum et. Aenean ligula urna, pulvinar iaculis
+                odio
+                vitae, auctor iaculis enim. Fusce auctor in lectus sed ornare. Duis a scelerisque nisi. Cras ultrices
+                dui id
+                massa blandit efficitur. Cras est dui, maximus eu vehicula a, varius at ligula. Duis ut volutpat ipsum.
+                Donec ac
+                purus lacinia, feugiat nunc et, fermentum dolor. Maecenas tempor lacus massa, a iaculis ex ornare sed.
+                Vestibulum porttitor velit sed eros rutrum tempus. Vestibulum imperdiet lorem quis dignissim venenatis.
+                Nullam
+                nec metus condimentum, tristique metus at, porta justo. In dignissim eget mauris sed ornare.</p>
+
+            <p>Integer a nunc id dui facilisis laoreet at a ante. Phasellus ac ornare dolor, sed imperdiet diam. Quisque
+                dignissim mollis tellus et interdum. Quisque pharetra arcu vel diam cursus, et imperdiet sapien mattis.
+                Proin
+                tortor dolor, feugiat et metus sed, imperdiet dignissim lacus. Donec semper finibus justo, in venenatis
+                dolor
+                mollis vitae. Maecenas et nulla elementum sapien convallis molestie et vitae arcu. Donec pretium mauris
+                ut nibh
+                tristique mattis. Nullam feugiat tincidunt ornare. Donec eleifend justo in leo consectetur, quis
+                molestie magna
+                hendrerit.</p>
+
+            <h2>Episode 2</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor eros vitae diam ultrices porta.
+                Praesent in
+                sapien ex. Duis non blandit libero, id sodales orci. Integer nisi massa, interdum non convallis ut,
+                efficitur a
+                risus. Vestibulum eu augue eu purus interdum consequat. Maecenas sit amet felis vitae sapien faucibus
+                porta sed
+                eu tortor. Sed consectetur consequat nunc, non tempus mauris sollicitudin eu. Fusce condimentum aliquam
+                dictum.
+                Aenean ut ligula semper, pretium urna quis, euismod quam. Donec non dui urna. Ut scelerisque vestibulum
+                quam, id
+                fermentum arcu maximus in.</p>
+
+            <p>Quisque diam erat, sagittis ac ex vitae, maximus fermentum nunc. Proin congue arcu ut ante elementum,
+                laoreet
+                lobortis orci sagittis. Duis at tortor eu justo fermentum euismod sit amet iaculis ipsum. Interdum et
+                malesuada
+                fames ac ante ipsum primis in faucibus. Sed sodales dui et justo aliquam, lacinia malesuada velit
+                imperdiet. Sed
+                eget ligula urna. Donec ut mauris quis felis mattis pellentesque. Pellentesque sit amet felis quis augue
+                consectetur gravida id eget diam. Cras nec convallis odio, et semper nisl.</p>
+
+            <p>Quisque sit amet ligula est. Quisque ultrices tempus nisi, eu euismod diam pretium et. Vestibulum
+                molestie a
+                ligula hendrerit ultrices. Duis accumsan pulvinar nisi, at pellentesque justo accumsan quis. Proin
+                tempor nisi
+                in efficitur tempor. Donec quis sollicitudin sapien. Vestibulum sit amet malesuada lacus. Etiam at
+                turpis mi.
+                Pellentesque at dictum ex. Integer in tincidunt erat. Nullam varius, felis sed placerat lobortis, tortor
+                sem
+                euismod massa, ac ornare dui quam ut dolor. Nunc eget erat magna.</p>
+
+            <p>Integer a nunc id dui facilisis laoreet at a ante. Phasellus ac ornare dolor, sed imperdiet diam. Quisque
+                dignissim mollis tellus et interdum. Quisque pharetra arcu vel diam cursus, et imperdiet sapien mattis.
+                Proin
+                tortor dolor, feugiat et metus sed, imperdiet dignissim lacus. Donec semper finibus justo, in venenatis
+                dolor
+                mollis vitae. Maecenas et nulla elementum sapien convallis molestie et vitae arcu. Donec pretium mauris
+                ut nibh
+                tristique mattis. Nullam feugiat tincidunt ornare. Donec eleifend justo in leo consectetur, quis
+                molestie magna
+                hendrerit.</p>
+
+            <p>Suspendisse finibus dui dolor, eu pellentesque nisi bibendum et. Aenean ligula urna, pulvinar iaculis
+                odio
+                vitae, auctor iaculis enim. Fusce auctor in lectus sed ornare. Duis a scelerisque nisi. Cras ultrices
+                dui id
+                massa blandit efficitur. Cras est dui, maximus eu vehicula a, varius at ligula. Duis ut volutpat ipsum.
+                Donec ac
+                purus lacinia, feugiat nunc et, fermentum dolor. Maecenas tempor lacus massa, a iaculis ex ornare sed.
+                Vestibulum porttitor velit sed eros rutrum tempus. Vestibulum imperdiet lorem quis dignissim venenatis.
+                Nullam
+                nec metus condimentum, tristique metus at, porta justo. In dignissim eget mauris sed ornare.</p>
+
+            <p>Integer a nunc id dui facilisis laoreet at a ante. Phasellus ac ornare dolor, sed imperdiet diam. Quisque
+                dignissim mollis tellus et interdum. Quisque pharetra arcu vel diam cursus, et imperdiet sapien mattis.
+                Proin
+                tortor dolor, feugiat et metus sed, imperdiet dignissim lacus. Donec semper finibus justo, in venenatis
+                dolor
+                mollis vitae. Maecenas et nulla elementum sapien convallis molestie et vitae arcu. Donec pretium mauris
+                ut nibh
+                tristique mattis. Nullam feugiat tincidunt ornare. Donec eleifend justo in leo consectetur, quis
+                molestie magna
+                hendrerit.</p>
+            <h2>Episode 3</h2>
+            <p>Integer a nunc id dui facilisis laoreet at a ante. Phasellus ac ornare dolor, sed imperdiet diam. Quisque
+                dignissim mollis tellus et interdum. Quisque pharetra arcu vel diam cursus, et imperdiet sapien mattis.
+                Proin
+                tortor dolor, feugiat et metus sed, imperdiet dignissim lacus. Donec semper finibus justo, in venenatis
+                dolor
+                mollis vitae. Maecenas et nulla elementum sapien convallis molestie et vitae arcu. Donec pretium mauris
+                ut nibh
+                tristique mattis. Nullam feugiat tincidunt ornare. Donec eleifend justo in leo consectetur, quis
+                molestie magna
+                hendrerit.</p>
+            <h2>Episode 4</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor eros vitae diam ultrices porta.
+                Praesent in
+                sapien ex. Duis non blandit libero, id sodales orci. Integer nisi massa, interdum non convallis ut,
+                efficitur a
+                risus. Vestibulum eu augue eu purus interdum consequat. Maecenas sit amet felis vitae sapien faucibus
+                porta sed
+                eu tortor. Sed consectetur consequat nunc, non tempus mauris sollicitudin eu. Fusce condimentum aliquam
+                dictum.
+                Aenean ut ligula semper, pretium urna quis, euismod quam. Donec non dui urna. Ut scelerisque vestibulum
+                quam, id
+                fermentum arcu maximus in.</p>
+
+            <p>Quisque diam erat, sagittis ac ex vitae, maximus fermentum nunc. Proin congue arcu ut ante elementum,
+                laoreet
+                lobortis orci sagittis. Duis at tortor eu justo fermentum euismod sit amet iaculis ipsum. Interdum et
+                malesuada
+                fames ac ante ipsum primis in faucibus. Sed sodales dui et justo aliquam, lacinia malesuada velit
+                imperdiet. Sed
+                eget ligula urna. Donec ut mauris quis felis mattis pellentesque. Pellentesque sit amet felis quis augue
+                consectetur gravida id eget diam. Cras nec convallis odio, et semper nisl.</p>
+
+            <p>Quisque sit amet ligula est. Quisque ultrices tempus nisi, eu euismod diam pretium et. Vestibulum
+                molestie a
+                ligula hendrerit ultrices. Duis accumsan pulvinar nisi, at pellentesque justo accumsan quis. Proin
+                tempor nisi
+                in efficitur tempor. Donec quis sollicitudin sapien. Vestibulum sit amet malesuada lacus. Etiam at
+                turpis mi.
+                Pellentesque at dictum ex. Integer in tincidunt erat. Nullam varius, felis sed placerat lobortis, tortor
+                sem
+                euismod massa, ac ornare dui quam ut dolor. Nunc eget erat magna.</p>
+
+            <p>Integer a nunc id dui facilisis laoreet at a ante. Phasellus ac ornare dolor, sed imperdiet diam. Quisque
+                dignissim mollis tellus et interdum. Quisque pharetra arcu vel diam cursus, et imperdiet sapien mattis.
+                Proin
+                tortor dolor, feugiat et metus sed, imperdiet dignissim lacus. Donec semper finibus justo, in venenatis
+                dolor
+                mollis vitae. Maecenas et nulla elementum sapien convallis molestie et vitae arcu. Donec pretium mauris
+                ut nibh
+                tristique mattis. Nullam feugiat tincidunt ornare. Donec eleifend justo in leo consectetur, quis
+                molestie magna
+                hendrerit.</p>
+
+            <p>Suspendisse finibus dui dolor, eu pellentesque nisi bibendum et. Aenean ligula urna, pulvinar iaculis
+                odio
+                vitae, auctor iaculis enim. Fusce auctor in lectus sed ornare. Duis a scelerisque nisi. Cras ultrices
+                dui id
+                massa blandit efficitur. Cras est dui, maximus eu vehicula a, varius at ligula. Duis ut volutpat ipsum.
+                Donec ac
+                purus lacinia, feugiat nunc et, fermentum dolor. Maecenas tempor lacus massa, a iaculis ex ornare sed.
+                Vestibulum porttitor velit sed eros rutrum tempus. Vestibulum imperdiet lorem quis dignissim venenatis.
+                Nullam
+                nec metus condimentum, tristique metus at, porta justo. In dignissim eget mauris sed ornare.</p>
+
+            <p>Integer a nunc id dui facilisis laoreet at a ante. Phasellus ac ornare dolor, sed imperdiet diam. Quisque
+                dignissim mollis tellus et interdum. Quisque pharetra arcu vel diam cursus, et imperdiet sapien mattis.
+                Proin
+                tortor dolor, feugiat et metus sed, imperdiet dignissim lacus. Donec semper finibus justo, in venenatis
+                dolor
+                mollis vitae. Maecenas et nulla elementum sapien convallis molestie et vitae arcu. Donec pretium mauris
+                ut nibh
+                tristique mattis. Nullam feugiat tincidunt ornare. Donec eleifend justo in leo consectetur, quis
+                molestie magna
+                hendrerit.</p>
+        </div>
+    </row>
+{% endblock %}

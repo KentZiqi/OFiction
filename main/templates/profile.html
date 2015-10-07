@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="profile-wrapper">
+        <div class="edit_button"><button class="btn btn-default btn-primary pull-right">Edit Profile</button></div>
+        <img class="profile-image" src="{% static 'self_square.jpg' %}"/>
+        <h1>Kent Shikama</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor eros vitae diam ultrices porta. Praesent
+            in
+            sapien ex. Duis non blandit libero, id sodales orci. Integer nisi massa, interdum non convallis ut,
+            efficitur a
+            risus. Vestibulum eu augue eu purus interdum consequat. Maecenas sit amet felis vitae sapien faucibus porta
+            sed
+            eu tortor. Sed consectetur consequat nunc, non tempus mauris sollicitudin eu. Fusce condimentum aliquam
+            dictum.
+            Aenean ut ligula semper, pretium urna quis, euismod quam. Donec non dui urna. Ut scelerisque vestibulum
+            quam, id
+            fermentum arcu maximus in.</p>
+    </div>
+{% endblock %}

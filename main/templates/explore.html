@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <h1>Trending Stories</h1>
+    <br/>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a href="{% url 'work' %}">Kent/NVC/Episode-4</a>
+            <span style="float: right">60 Stars</span>
+        </li>
+        <li class="list-group-item">
+            <a href="{% url 'work' %}">Kent/Star-Wars/Episode-1</a>
+            <span style="float: right">55 Stars</span>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h1>Account Settings</h1>
+    <br/>
+    <div class="account-form">
+        <h2>Edit Profile</h2>
+        <hr />
+        <form role="form">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name">Display Name:</label>
+                    <input type="text" class="form-control" id="name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFile">Profile Picture:</label>
+                    <input type="file" id="exampleInputFile">
+
+                    <p class="help-block">Upload a square JPEG file.</p>
+                </div>
+                <button type="submit" class="btn btn-default btn-block btn-primary">Edit Profile</button>
+            </div>
+            <div class="col-md-6"></div>
+        </form>
+    </div>
+    <div class="margin20"></div>
+    <div class="account-form">
+        <h2>Change Password</h2>
+        <hr />
+        <form role="form">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="old-password">Old Password:</label>
+                    <input type="text" class="form-control" id="old-password">
+                </div>
+                <div class="form-group">
+                    <label for="new-password">New Password:</label>
+                    <input type="text" class="form-control" id="new-password">
+                </div>
+                <div class="form-group">
+                    <label for="new-password-confirm">New Password Confirmation:</label>
+                    <input type="text" class="form-control" id="new-password-confirm">
+                </div>
+                <button type="submit" class="btn btn-default btn-block btn-primary">Change Password</button>
+            </div>
+            <div class="col-md-6"></div>
+        </form>
+    </div>
+{% endblock %}
