@@ -69,7 +69,7 @@ DATABASES = {
 
 STATIC_URL = '/static/'
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
-STATIC_ROOT = os.path.join(ENV_PATH, '../OFiction/static/')
+STATIC_ROOT = os.path.join(ENV_PATH, 'static')
 PROJECT_PATH = os.path.join(ENV_PATH, os.pardir)
 STATICFILES_DIRS = ()
 

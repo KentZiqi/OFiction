@@ -1,0 +1,135 @@
+@import "bootstrap-variables";
+@import "../bootstrap";
+@import "bootswatch";
+
+.home-h1 {
+  font-size: 80px;
+}
+
+.btn-xlg {
+  padding: 18px 28px;
+  font-size: 70px; //change this to your desired size
+  line-height: normal;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+html, body {
+  min-height: 100vh;
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  min-height: 81vh;
+}
+
+.footer {
+  border-top: 1px #EEEEEE solid;
+  color: #444;
+  text-align: center;
+  padding: 14px 0px;
+}
+
+.edit_button {
+  overflow: auto;
+  clear: both;
+}
+
+.profile-wrapper {
+  padding: 50px;
+  text-align: center;
+  p {
+    padding: 20px;
+    text-align: left;
+  }
+}
+
+.profile-image {
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+}
+
+.tree {
+  position: relative;
+  height: 600px;
+  div {
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    .circle {
+      position: absolute;
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #333;
+    }
+    .active {
+      background-color: red;
+    }
+    .node-text {
+      color: #333333;
+      position: absolute;
+      top: 4px;
+      left: 40px;
+      display: inline-block;
+      font-size: 18px;
+    }
+  }
+  #node-1-container {
+    top: 0px;
+    left: 0px;
+  }
+  #node-2-container {
+    top: 50px;
+    left: 0px;
+  }
+  #node-3-container {
+    top: 100px;
+    left: 0px;
+  }
+  #node-4-container {
+    top: 150px;
+    left: 0px;
+  }
+  #node-5-container {
+    top: 150px;
+    left: 230px;
+  }
+  #node-6-container {
+    top: 200px;
+    left: 0px;
+  }
+  #node-7-container {
+    top: 200px;
+    left: 230px;
+  }
+}
+
+.dot {
+  color: #333;
+  background-color: #333;
+}
+
+.margin20 {
+  margin: 20px;
+}
+
+.margin100 {
+  margin: 100px;
+}
+
+.account-form {
+  padding-bottom: 20px;
+  overflow: auto;
+  display: block;
+  clear: both;
+}
