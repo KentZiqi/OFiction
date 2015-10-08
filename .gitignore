@@ -3,10 +3,10 @@
 *.pyc
 db.sqlite3
 
-ColaFiction/static/CACHE
-ColaFiction/static/admin
-ColaFiction/static/bootstrap
-ColaFiction/static/fonts
-ColaFiction/static/js
-ColaFiction/static/_bootstrap.scss
+OFiction/static/CACHE
+OFiction/static/admin
+OFiction/static/bootstrap
+OFiction/static/fonts
+OFiction/static/js
+OFiction/static/_bootstrap.scss
 ve

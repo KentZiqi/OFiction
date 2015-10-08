@@ -52,9 +52,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'ColaFiction.urls'
+ROOT_URLCONF = 'OFiction.urls'
 
-WSGI_APPLICATION = 'ColaFiction.wsgi.application'
+WSGI_APPLICATION = 'OFiction.wsgi.application'
 
 
 # Database
@@ -69,7 +69,7 @@ DATABASES = {
 
 STATIC_URL = '/static/'
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
-STATIC_ROOT = os.path.join(ENV_PATH, 'static/')
+STATIC_ROOT = os.path.join(ENV_PATH, '../OFiction/static/')
 PROJECT_PATH = os.path.join(ENV_PATH, os.pardir)
 STATICFILES_DIRS = ()
 
