@@ -12,5 +12,6 @@ urlpatterns = patterns('',
     url(r'^storyline/$', storyline, name='storyline'),
     url(r'^settings/$', settings, name='settings'),
     url(r'^sign_in/$', sign_in, name='sign_in'),
-    url(r'^sign_up/$', sign_up, name='sign_up')
+    url(r'^sign_up/$', sign_up, name='sign_up'),
+    url(r'^welcome/$', welcome, name='welcome')
 )
