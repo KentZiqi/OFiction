@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'compressor',
     'bootstrap3_sass',
+    'django_extensions',
     'main'
 )
 
@@ -70,8 +71,6 @@ DATABASES = {
 STATIC_URL = '/static/'
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
 STATIC_ROOT = os.path.join(ENV_PATH, 'static')
-PROJECT_PATH = os.path.join(ENV_PATH, os.pardir)
-STATICFILES_DIRS = ()
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
