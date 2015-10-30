@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
+from django.forms import ModelForm
 
 class Profile(models.Model):
   user = models.OneToOneField(User,null=True)
@@ -42,9 +43,13 @@ class Episode(models.Model):
   def __str__(self):
       return self.title + " by " + str(self.author)
 
+class EpisodeForm(ModelForm):
+    class Meta:
+        model = Episode
+        fields = ['title', 'content']
+
 class EpisodeVersion(models.Model):
   episode = models.ForeignKey(Episode)
-
   content = models.TextField()
   created_date = models.DateTimeField(default=datetime.datetime.now)
 

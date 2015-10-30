@@ -6,7 +6,11 @@ urlpatterns = patterns('',
     # url(r'^$', 'ColaFiction.views.home', name='home'),
     url(r'^$', home, name='home'),
     url(r'^notifications/$', notifications, name='notifications'),
-    url(r'^episode/$', episode, name='episode'),
+
+    url(r'^episode/(?P<episode_id>\d+)/$', episode, name='episode'),
+    url(r'^episode/new/(?P<fiction_id>)\d+/(?P<parent_id>\d+/)$',episode_create, name='episode_create'),
+    url(r'^episode/(?P<episode_id>\d+)/edit/$',episode_edit, name='episode_edit'),
+
     url(r'^explore/$', explore, name='explore'),
     url(r'^profile/$', profile, name='profile'),
     url(r'^storyline/$', storyline, name='storyline'),
