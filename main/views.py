@@ -1,8 +1,10 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
 def home(request):
-    return render(request, 'index.html', {})
+    fictions = Fiction.objects.all()
+    return render(request, 'index.html', {"fictions": fictions})
 
 def notifications(request):
     return render(request, 'notifications.html', {})
@@ -30,3 +32,22 @@ def sign_up(request):
 
 def welcome(request):
     return render(request, 'welcome.html', {})
+
+from django.views.generic.edit import CreateView
+from main.models import Fiction, Episode, Profile
+
+class FictionCreate(CreateView):
+    model = Fiction
+    fields = ["section", "title", "starters", "created_date"]
+    template_name_suffix = "_create_form"
+    success_url = "/"
+
+    def form_valid(self, form):
+       self.object = form.save()
+       root = Episode(fiction=self.object, title="Hello World", author=Profile.objects.first())
+       root.save()
+       fiction = Fiction.objects.get(pk=self.object.pk)
+       fiction.root = root
+       fiction.save()
+       return HttpResponseRedirect(self.get_success_url())
+

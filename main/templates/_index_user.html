@@ -1,11 +1,18 @@
 <row>
-    <a href="#"><button class="btn btn-default btn-primary pull-right">New Story</button></a>
+    <a href="{% url 'create_fiction' %}">
+        <button class="btn btn-default btn-primary pull-right">New Story</button>
+    </a>
+
     <h1>Your works</h1>
     <br/>
     <ul class="list-group">
         <li class="list-group-item">
-            <a href="#"><button class="btn btn-default btn-primary pull-right">New Episode</button></a>
+            <a href="#">
+                <button class="btn btn-default btn-primary pull-right">New Episode</button>
+            </a>
+
             <h2>Kent/NVC</h2>
+
             <div class="margin20"></div>
             <ul class="list-group">
                 <li class="list-group-item">
@@ -39,8 +46,12 @@
             </ul>
         </li>
         <li class="list-group-item">
-            <a href="#"><button class="btn btn-default btn-primary pull-right">New Episode</button></a>
+            <a href="#">
+                <button class="btn btn-default btn-primary pull-right">New Episode</button>
+            </a>
+
             <h2>Kent/Star-Wars</h2>
+
             <div class="margin20"></div>
             <ul class="list-group">
                 <li class="list-group-item">
@@ -52,5 +63,25 @@
                 </li>
             </ul>
         </li>
+        {% for fiction in fictions %}
+            <li class="list-group-item">
+                <a href="#">
+                    <button class="btn btn-default btn-primary pull-right">New Episode</button>
+                </a>
+
+                <h2>{{ fiction.title }}</h2>
+
+                <div class="margin20"></div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="{% url 'episode' %}">Default Title</a>
+                    <span style="float: right">
+                        <a href="#">Rename</a>
+                        | <a href="#">Delete</a>
+                    </span>
+                    </li>
+                </ul>
+            </li>
+        {% endfor %}
     </ul>
 </row>
