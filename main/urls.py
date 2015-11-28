@@ -19,5 +19,8 @@ urlpatterns = patterns('',
     url(r'^sign_up/$', sign_up, name='sign_up'),
     url(r'^welcome/$', welcome, name='welcome'),
 
-    url(r'^fiction/new/$', FictionCreate.as_view(), name='create_fiction')
+    url(r'^fiction/new/$', FictionCreate.as_view(), name='create_fiction'),
+
+    url(r'^comment/(?P<episode_id>\d+)/', comment_create, name="comment_create"),
+    url(r'^star/(?P<episode_id>\d+)/', star, name="star")
 )

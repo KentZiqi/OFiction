@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render,redirect
-from main.models import Episode, EpisodeForm, Fiction
+from django.shortcuts import render,redirect, get_object_or_404
+from main.models import Episode, EpisodeForm, Fiction, CommentForm
 from django.core.urlresolvers import reverse
 
 # Create your views here.
@@ -13,7 +13,23 @@ def notifications(request):
 
 def episode(request,episode_id):
     episode = Episode.objects.get(id=episode_id)
-    return render(request, 'episode/episode.html', {'episode':episode})
+    stars = len(episode.stars.all())
+    children = len(episode.children.all())
+    commentForm = CommentForm()
+    return render(request, 'episode/episode.html', {'episode':episode,'commentForm':commentForm, 'stars':stars,
+                                                    'children': children})
+
+def comment_create(request,episode_id):
+    comment = CommentForm(request.POST)
+    episode =  get_object_or_404(Episode,pk=episode_id)
+    if comment.is_valid():
+        comment = comment.save(commit=False)
+        comment.commenter = request.user.profile
+        comment.episode = episode
+        comment.save()
+        return redirect(reverse("episode",kwargs={'episode_id':episode_id}))
+    else:
+        return render(request, 'episode/episode.html', {'episode':episode,'commentForm':comment})
 
 def episode_create(request,fiction_id,parent_id):
     fiction = Fiction.objects.get(id=fiction_id)
@@ -37,6 +53,11 @@ def episode_create(request,fiction_id,parent_id):
 def episode_edit(request,episode_id):
     episode = Episode.objects.get(id=episode_id)
     return render(request, 'episode.html', {episode})
+
+def star(request,episode_id):
+    episode = get_object_or_404(Episode,pk=episode_id)
+    episode.stars.add(request.user.profile)
+    return redirect(reverse("episode",kwargs={'episode_id':episode_id}))
 
 def profile(request):
     return render(request, 'profile.html', {})

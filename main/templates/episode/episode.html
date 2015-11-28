@@ -4,12 +4,13 @@
     <!-- Single button -->
     <div class="btn-toolbar pull-right" role="toolbar" aria-label="...">
         <div class="btn-group">
-            <button type="button" class="btn btn-default">Star</button>
-            <button type="button" class="btn btn-default">50</button>
+            <a id='star-url' href="{% url 'star' episode.id %}"></a>
+            <button type="button" id='star-btn' class="btn btn-default">Star</button>
+            <button type="button" class="btn btn-default">{{ stars }}</button>
         </div>
         <div class="btn-group">
             <button type="button" class="btn btn-default">Evolve</button>
-            <button type="button" class="btn btn-default">50</button>
+            <button type="button" class="btn btn-default">{{ children }}</button>
         </div>
         <div class="btn-group">
             <a href="{% url 'storyline' %}">
@@ -26,25 +27,24 @@
     {{ episode.content }}
     <hr/>
     <h3>Comments</h3>
-    <blockquote>Ziqi on 7:13 Oct 10, 2015</blockquote>
-    <p>Suspendisse finibus dui dolor, eu pellentesque nisi bibendum et. Aenean ligula urna, pulvinar iaculis odio
-        vitae, auctor iaculis enim. Fusce auctor in lectus sed ornare. Duis a scelerisque nisi. Cras ultrices dui id
-        massa blandit efficitur. Cras est dui, maximus eu vehicula a, varius at ligula. Duis ut volutpat ipsum. Donec ac
-        purus lacinia, feugiat nunc et, fermentum dolor. Maecenas tempor lacus massa, a iaculis ex ornare sed.
-        Vestibulum porttitor velit sed eros rutrum tempus. Vestibulum imperdiet lorem quis dignissim venenatis. Nullam
-        nec metus condimentum, tristique metus at, porta justo. In dignissim eget mauris sed ornare.</p>
-    <blockquote>Kent on 8:15 Oct 11, 2015</blockquote>
-    <p>Suspendisse finibus dui dolor, eu pellentesque nisi bibendum et. Aenean ligula urna, pulvinar iaculis odio
-        vitae, auctor iaculis enim. Fusce auctor in lectus sed ornare. Duis a scelerisque nisi. Cras ultrices dui id
-        massa blandit efficitur. Cras est dui, maximus eu vehicula a, varius at ligula. Duis ut volutpat ipsum. Donec ac
-        purus lacinia, feugiat nunc et, fermentum dolor. Maecenas tempor lacus massa, a iaculis ex ornare sed.
-        Vestibulum porttitor velit sed eros rutrum tempus. Vestibulum imperdiet lorem quis dignissim venenatis. Nullam
-        nec metus condimentum, tristique metus at, porta justo. In dignissim eget mauris sed ornare.</p>
-    <form role="form">
+    {% for comment in episode.comment_set.all %}
+    <blockquote>{{ comment.commenter }} on {{ comment.created_date }}</blockquote>
+    {{ comment.body }}
+    {% endfor %}
+    <form method="POST" action="{% url 'comment_create' episode.id %}">
+            {% csrf_token %}
             <h4>Create New Comment</h4>
-            <textarea class="form-control" rows="5" id="comment"></textarea>
+            {{ commentForm }}
             <br />
             <button type="submit" class="btn btn-default btn-block btn-primary">Comment</button>
     </form>
     <div class="margin20"></div>
+{% endblock %}
+
+{% block additional_script %}
+    <script>
+        $('#star-btn').click(function(){
+            document.getElementById('star-url').click();
+        })
+    </script>
 {% endblock %}

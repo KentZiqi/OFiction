@@ -30,7 +30,7 @@ class Fiction(models.Model):
 
 class Episode(models.Model):
   fiction = models.ForeignKey(Fiction)
-  parent = models.ForeignKey("self", null=True, blank=True)
+  parent = models.ForeignKey("self", related_name="children", null=True, blank=True)
   after = models.BooleanField(default=True)
   duplicate = models.ForeignKey("self", related_name="duplicates", null=True, blank=True)
   title = models.CharField(max_length=200)
@@ -50,9 +50,14 @@ class EpisodeForm(ModelForm):
 
 class Comment(models.Model):
   commenter = models.ForeignKey(Profile)
-  chapter = models.ForeignKey(Episode)
+  episode = models.ForeignKey(Episode)
   body = models.TextField()
   created_date = models.DateTimeField(default=datetime.datetime.now)
 
   def __str__(self):
-      return self.body + " by " + self.commenter
+      return self.body + " by " + str(self.commenter)
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['body']
