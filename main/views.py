@@ -13,7 +13,7 @@ def notifications(request):
 
 def episode(request,episode_id):
     episode = Episode.objects.get(id=episode_id)
-    return render(request, 'episode.html', {'episode':episode})
+    return render(request, 'episode/episode.html', {'episode':episode})
 
 def episode_create(request,fiction_id,parent_id):
     fiction = Fiction.objects.get(id=fiction_id)

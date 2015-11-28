@@ -7,7 +7,7 @@ class Profile(models.Model):
   user = models.OneToOneField(User,null=True)
   display_name = models.CharField(blank=True,max_length=50)
   description = models.TextField(blank=True,null=True)
-  subscriptions = models.ManyToManyField("Fiction",related_name="subscribers")
+  subscriptions = models.ManyToManyField("Fiction",related_name="subscribers",blank=True)
 
   def __str__(self):
       return self.display_name
@@ -20,11 +20,9 @@ class Section(models.Model):
 
 class Fiction(models.Model):
   section = models.ForeignKey(Section, related_name='fictions')
-
   title = models.CharField(max_length=200)
   starters = models.ManyToManyField(Profile)
   created_date = models.DateTimeField(default=datetime.datetime.now)
-  root = models.ForeignKey("main.Episode", related_name="start", null=True)
 
   # TODO: Make it so that it doesn't print a comma and space after the last author
   def __str__(self):
@@ -32,13 +30,13 @@ class Fiction(models.Model):
 
 class Episode(models.Model):
   fiction = models.ForeignKey(Fiction)
-
-  parent = models.ForeignKey("self", null=True)
+  parent = models.ForeignKey("self", null=True, blank=True)
   after = models.BooleanField(default=True)
-  duplicate = models.ForeignKey("self", null=True)
+  duplicate = models.ForeignKey("self", related_name="duplicates", null=True, blank=True)
   title = models.CharField(max_length=200)
   author = models.ForeignKey(Profile)
-  stars = models.ManyToManyField(Profile,related_name="likers")
+  content = models.TextField(default="This episode is empty")
+  stars = models.ManyToManyField(Profile,related_name="likers", null=True, blank=True)
   created_date = models.DateTimeField(default=datetime.datetime.now)
   summary = models.TextField()
 
