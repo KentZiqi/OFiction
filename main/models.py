@@ -34,6 +34,8 @@ class Episode(models.Model):
   fiction = models.ForeignKey(Fiction)
 
   parent = models.ForeignKey("self", null=True)
+  after = models.BooleanField(default=True)
+  duplicate = models.ForeignKey("self", null=True)
   title = models.CharField(max_length=200)
   author = models.ForeignKey(Profile)
   stars = models.ManyToManyField(Profile,related_name="likers")
@@ -47,15 +49,6 @@ class EpisodeForm(ModelForm):
     class Meta:
         model = Episode
         fields = ['title', 'content']
-
-class EpisodeVersion(models.Model):
-  episode = models.ForeignKey(Episode)
-  content = models.TextField()
-  created_date = models.DateTimeField(default=datetime.datetime.now)
-
-  # TODO: Add query to recover version
-  def __str__(self):
-      return "Episode " + str(self.episode) + " version X"
 
 class Comment(models.Model):
   commenter = models.ForeignKey(Profile)
