@@ -36,10 +36,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'compressor',
     'bootstrap3_sass',
-    'django_extensions',
+    'compressor',
     'widget_tweaks',
+    'django_extensions',
     'main'
 )
 
@@ -72,6 +72,8 @@ DATABASES = {
 STATIC_URL = '/static/'
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
 STATIC_ROOT = os.path.join(ENV_PATH, 'static')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(ENV_PATH, 'media')
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/

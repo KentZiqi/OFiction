@@ -2,8 +2,6 @@ from django.conf.urls import patterns, url
 from main.views import *
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'ColaFiction.views.home', name='home'),
     url(r'^$', home, name='home'),
     url(r'^notifications/$', notifications, name='notifications'),
 
@@ -22,5 +20,6 @@ urlpatterns = patterns('',
     url(r'^fiction/new/$', FictionCreate.as_view(), name='create_fiction'),
 
     url(r'^comment/(?P<episode_id>\d+)/', comment_create, name="comment_create"),
-    url(r'^star/(?P<episode_id>\d+)/', star, name="star")
+    url(r'^star/(?P<episode_id>\d+)/', star, name="star"),
+    url(r'^profile/edit/?$', ProfileView.as_view(), name='edit_profile'),
 )

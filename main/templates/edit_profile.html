@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static "custom/edit_profile.scss" %}"/>
+{% endblock %}
+
+{% block body %}
+    <div class="profile-body col-md-8">
+        <h1>Your Profile</h1>
+        <br/>
+
+        <h2>Profile Picture</h2>
+        <hr/>
+        <form method="POST" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+            <div class="col-md-4">
+                <img src="{{ preview_url }}" class="profile-picture-edit"/>
+            </div>
+            <div class="col-md-8">
+                <input class="form-control margin10" id="id_image" name="image" placeholder="Image" type="file">
+                <br/>
+                <input class="btn btn-default btn-block btn-primary margin10" id="register" type="submit"
+                       name="picture"
+                       value="Upload Profile Picture"/>
+            </div>
+        </form>
+        <div class="large-space"></div>
+        <h2>Bio</h2>
+        <hr/>
+        <form method="POST" action="">
+            {% csrf_token %}
+            {% for field in profile_form %}
+                <div class="form-group">
+                    <label for="name">{{ field.label }}:</label>
+                    {% render_field field class+="form-control margin10" placeholder=field.label %}
+                </div>
+            {% endfor %}
+            <input class="btn btn-default btn-block btn-primary margin10" id="register" type="submit" name="profile"
+                   value="Change Profile"/>
+        </form>
+        <div class="large-space"></div>
+    </div>
+{% endblock %}

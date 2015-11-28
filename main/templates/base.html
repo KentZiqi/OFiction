@@ -6,10 +6,12 @@
     <meta charset="UTF-8">
     {% compress css %}
         <link rel="stylesheet" type="text/x-scss" href="{% static "custom/main.scss" %}"/>
+        {% block css %}
+        {% endblock %}
     {% endcompress %}
     <script src="{% static "js/jquery-1.11.1.min.js" %}"></script>
     <script src="{% static "js/bootstrap.min.js" %}"></script>
-    {% block title %}
+    {% block javascript %}
     {% endblock %}
     <title>Welcome</title>
 </head>

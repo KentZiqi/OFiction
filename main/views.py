@@ -1,11 +1,12 @@
+from django.contrib.auth.models import User
+from django.forms import ModelForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect, get_object_or_404
-from main.models import Episode, EpisodeForm, Fiction, CommentForm
+from main.models import Comment
 from django.core.urlresolvers import reverse
-from django.contrib.auth import authenticate, login as do_login, logout as do_logout
 
 # Create your views here.
-
+from django.views.generic import View
 
 def home(request):
     if request.user.is_anonymous():
@@ -14,27 +15,6 @@ def home(request):
     fictions = [episode.fiction for episode in episodes]
     fictions = list(set(fictions))
     return render(request, 'index.html', {"fictions": fictions,'episodes':episodes,'request':request})
-
-def login(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user:
-            do_login(request, user)
-            return redirect(reverse('home'))
-        else:
-            return render(request, 'login.html', {
-                'error': 'Authentication failed.',
-                'request':request
-            })
-    else:
-        return render(request, 'login.html',{'request':request})
-
-def logout(request):
-    do_logout(request)
-    return redirect(reverse('home'))
-
 
 def notifications(request):
     return render(request, 'notifications.html', {})
@@ -57,14 +37,14 @@ def comment_create(request,episode_id):
         comment.save()
         return redirect(reverse("episode",kwargs={'episode_id':episode_id}))
     else:
-        return render(request, 'episode/episode.html', {'episode':episode,'commentForm':comment,'request':request})
+        return render(request, 'episode/episode.html', {'episode':episode,'commentForm':comment})
 
 def episode_create(request,fiction_id,parent_id):
     fiction = Fiction.objects.get(id=fiction_id)
     parent = Episode.objects.get(id=parent_id)
     if request.method == 'GET':
         form =  EpisodeForm()
-        return render(request, 'episode/episode_create.html', {'form':form,'request':request})
+        return render(request, 'episode/episode_create.html', {'form':form})
     else:
         form = EpisodeForm(request.POST)
         if form.is_valid():
@@ -76,7 +56,7 @@ def episode_create(request,fiction_id,parent_id):
             return redirect(reverse("episode",kwargs={'episode_id':new_episode.id}))
         else:
             return render(request, 'episode/episode_create.html', {
-                'form': form, 'request':request
+                'form': form
             })
 
 def episode_edit(request,episode_id):
@@ -85,14 +65,14 @@ def episode_edit(request,episode_id):
         return redirect(reverse("episode",kwargs={'episode_id':episode_id}))
     if request.method == 'GET':
         form = EpisodeForm(instance=episode)
-        return render(request,'episode/episode_edit.html',{'form':form, 'request':request})
+        return render(request,'episode/episode_edit.html',{'form':form})
     else:
         form = EpisodeForm(request.POST, instance=episode)
         if form.is_valid():
             form.save()
             return redirect(reverse("episode",kwargs={'episode_id':episode_id}))
         else:
-            return render(request,'episode/episode_edit.html',{'form':form, 'request':request})
+            return render(request,'episode/episode_edit.html',{'form':form})
 
 
 def star(request,episode_id):
@@ -101,7 +81,10 @@ def star(request,episode_id):
     return redirect(reverse("episode",kwargs={'episode_id':episode_id}))
 
 def profile(request):
-    return render(request, 'profile.html', {})
+    me = User.objects.first()
+    profile = Profile.objects.get(user=me)
+    profile_preview = profile.picture.thumbnail.url
+    return render(request, 'profile.html', {"user": profile, "preview_url": profile_preview })
 
 def explore(request):
     return render(request, 'explore.html', {})
@@ -112,12 +95,17 @@ def storyline(request):
 def settings(request):
     return render(request, 'settings.html', {})
 
+def sign_in(request):
+    return render(request, 'sign_in.html', {})
+
 def sign_up(request):
     return render(request, 'sign_up.html', {})
 
+def welcome(request):
+    return render(request, 'welcome.html', {})
 
 from django.views.generic.edit import CreateView
-from main.models import Fiction, Episode, Profile
+from main.models import Fiction, Episode, Profile, ProfilePhoto
 
 class FictionCreate(CreateView):
     model = Fiction
@@ -134,3 +122,51 @@ class FictionCreate(CreateView):
        fiction.save()
        return HttpResponseRedirect(self.get_success_url())
 
+class ProfilePhotoForm(ModelForm):
+    class Meta:
+        model = ProfilePhoto
+        fields = ["image"]
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["display_name", "description"]
+
+class ProfileView(View):
+
+    def get(self, request):
+        user = User.objects.first()
+        profile = Profile.objects.get(user=user)
+        photo_form = ProfilePhotoForm(instance=profile.picture)
+        profile_form = ProfileForm(instance=profile)
+        profile_preview = profile.picture.thumbnail.url
+        return render(request, "edit_profile.html", {"preview_url": profile_preview, "photo_form": photo_form, "profile_form": profile_form })
+
+    def post(self, request):
+        user = User.objects.first()
+        profile = Profile.objects.get(user=user)
+        photo_form = ProfilePhotoForm(instance=profile.picture)
+        profile_form = ProfileForm(instance=profile)
+        if 'picture' in self.request.POST:
+            photo_form = ProfilePhotoForm(request.POST, request.FILES)
+            if photo_form.is_valid():
+                image = photo_form.cleaned_data['image']
+                user = User.objects.first()
+                profile = Profile.objects.get(user=user)
+                ProfilePhoto.objects.update_or_create(profile=profile, defaults={'image': image})
+        elif 'profile' in self.request.POST:
+            profile_form = ProfileForm(request.POST, instance=profile)
+            if profile_form.is_valid():
+                profile_form.save()
+        profile_preview = profile.picture.thumbnail.url
+        return render(request, "edit_profile.html", {"preview_url": profile_preview, "photo_form": photo_form, "profile_form": profile_form })
+
+class EpisodeForm(ModelForm):
+    class Meta:
+        model = Episode
+        fields = ['title','summary', 'content']
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['body']
