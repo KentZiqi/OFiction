@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'compressor',
     'bootstrap3_sass',
     'django_extensions',
+    'widget_tweaks',
     'main'
 )
 

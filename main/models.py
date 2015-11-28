@@ -23,10 +23,8 @@ class Fiction(models.Model):
   title = models.CharField(max_length=200)
   starters = models.ManyToManyField(Profile)
   created_date = models.DateTimeField(default=datetime.datetime.now)
-
-  # TODO: Make it so that it doesn't print a comma and space after the last author
   def __str__(self):
-      return self.title + " by " + ([str(author) + ", " for author in self.starters.all()][0])
+      return self.title
 
 class Episode(models.Model):
   fiction = models.ForeignKey(Fiction)
@@ -41,12 +39,12 @@ class Episode(models.Model):
   summary = models.TextField()
 
   def __str__(self):
-      return self.title + " by " + str(self.author)
+      return self.title
 
 class EpisodeForm(ModelForm):
     class Meta:
         model = Episode
-        fields = ['title', 'content']
+        fields = ['title','summary', 'content']
 
 class Comment(models.Model):
   commenter = models.ForeignKey(Profile)

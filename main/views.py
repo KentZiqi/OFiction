@@ -5,8 +5,12 @@ from django.core.urlresolvers import reverse
 
 # Create your views here.
 def home(request):
-    fictions = Fiction.objects.all()
-    return render(request, 'index.html', {"fictions": fictions})
+    if request.user.is_anonymous():
+        return render(request, 'index.html',{'request':request})
+    episodes = Episode.objects.filter(author=request.user.profile)
+    fictions = [episode.fiction for episode in episodes]
+    fictions = list(set(fictions))
+    return render(request, 'index.html', {"fictions": fictions,'episodes':episodes,'request':request})
 
 def notifications(request):
     return render(request, 'notifications.html', {})
@@ -17,7 +21,7 @@ def episode(request,episode_id):
     children = len(episode.children.all())
     commentForm = CommentForm()
     return render(request, 'episode/episode.html', {'episode':episode,'commentForm':commentForm, 'stars':stars,
-                                                    'children': children})
+                                                    'children': children,'request':request})
 
 def comment_create(request,episode_id):
     comment = CommentForm(request.POST)
@@ -36,23 +40,36 @@ def episode_create(request,fiction_id,parent_id):
     parent = Episode.objects.get(id=parent_id)
     if request.method == 'GET':
         form =  EpisodeForm()
-        return render(request, 'episode_create.html', {'form':form})
+        return render(request, 'episode/episode_create.html', {'form':form})
     else:
         form = EpisodeForm(request.POST)
         if form.is_valid():
             new_episode = form.save(commit=False)
             new_episode.fiction = fiction
             new_episode.parent = parent
+            new_episode.author = request.user.profile
             new_episode.save()
             return redirect(reverse("episode",kwargs={'episode_id':new_episode.id}))
         else:
-            return render(request, 'episode_create.html', {
+            return render(request, 'episode/episode_create.html', {
                 'form': form
             })
 
 def episode_edit(request,episode_id):
-    episode = Episode.objects.get(id=episode_id)
-    return render(request, 'episode.html', {episode})
+    episode = get_object_or_404(Episode, pk=episode_id)
+    if request.user.profile.id != episode.author.id:
+        return redirect(reverse("episode",kwargs={'episode_id':episode_id}))
+    if request.method == 'GET':
+        form = EpisodeForm(instance=episode)
+        return render(request,'episode/episode_edit.html',{'form':form})
+    else:
+        form = EpisodeForm(request.POST, instance=episode)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse("episode",kwargs={'episode_id':episode_id}))
+        else:
+            return render(request,'episode/episode_edit.html',{'form':form})
+
 
 def star(request,episode_id):
     episode = get_object_or_404(Episode,pk=episode_id)

@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body %}
-{% include '_index_user.html' %}
+    {% if request.user.is_anonymous %}
+        {% include '_index_all.html' %}
+    {%  else %}
+        {% include '_index_user.html' %}
+    {% endif %}
 {% endblock %}

@@ -6,82 +6,28 @@
     <h1>Your works</h1>
     <br/>
     <ul class="list-group">
-        <li class="list-group-item">
-            <a href="#">
-                <button class="btn btn-default btn-primary pull-right">New Episode</button>
-            </a>
-
-            <h2>Kent/NVC</h2>
-
-            <div class="margin20"></div>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <a href="">Kent/NVC/Episode-4</a>
-                    <span style="float: right">
-                        <a href="#">Rename</a>
-                        | <a href="#">Delete</a>
-                    </span>
-                </li>
-                <li class="list-group-item">
-                    <a href="">Kent/NVC/Episode-3</a>
-                    <span style="float: right">
-                        <a href="#">Rename</a>
-                        | <a href="#">Delete</a>
-                    </span>
-                </li>
-                <li class="list-group-item">
-                    <a href="">Kent/NVC/Episode-2</a>
-                    <span style="float: right">
-                        <a href="#">Rename</a>
-                        | <a href="#">Delete</a>
-                    </span>
-                </li>
-                <li class="list-group-item">
-                    <a href="">Kent/NVC/Episode-1</a>
-                    <span style="float: right">
-                        <a href="#">Rename</a>
-                        | <a href="#">Delete</a>
-                    </span>
-                </li>
-            </ul>
-        </li>
-        <li class="list-group-item">
-            <a href="#">
-                <button class="btn btn-default btn-primary pull-right">New Episode</button>
-            </a>
-
-            <h2>Kent/Star-Wars</h2>
-
-            <div class="margin20"></div>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <a href="">Kent/Star-Wars/Episode-1</a>
-                    <span style="float: right">
-                        <a href="#">Rename</a>
-                        | <a href="#">Delete</a>
-                    </span>
-                </li>
-            </ul>
-        </li>
         {% for fiction in fictions %}
             <li class="list-group-item">
-                <a href="#">
-                    <button class="btn btn-default btn-primary pull-right">New Episode</button>
-                </a>
+            <a href="#">
+                <button class="btn btn-default btn-primary pull-right">New Episode</button>
+            </a>
 
-                <h2>{{ fiction.title }}</h2>
+            <h2>{{ fiction.title }}</h2>
 
-                <div class="margin20"></div>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <a href="">Default Title</a>
-                    <span style="float: right">
-                        <a href="#">Rename</a>
-                        | <a href="#">Delete</a>
-                    </span>
-                    </li>
-                </ul>
-            </li>
+            <div class="margin20"></div>
+            <ul class="list-group">
+                {% for episode in episodes %}
+                    {% if episode.fiction.id == fiction.id %}
+                        <li class="list-group-item">
+                        <a href="{% url 'episode' episode.id %}">{{ episode.title }}</a>
+                        <span style="float: right">
+                            <a href="{% url 'episode_edit' episode.id %}">Edit</a>
+                        </span>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </li>
         {% endfor %}
     </ul>
 </row>
