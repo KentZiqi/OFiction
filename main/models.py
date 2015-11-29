@@ -13,7 +13,7 @@ class Profile(models.Model):
   def __str__(self):
       return self.display_name
 
-class Section(models.Model):
+class Genre(models.Model):
   name = models.CharField(max_length=50)
 
   def __str__(self):
@@ -84,7 +84,7 @@ class ProfilePhoto(models.Model):
         return self.image.url
 
 class Fiction(models.Model):
-  section = models.ForeignKey(Section, related_name='fictions')
+  genre = models.ForeignKey(Genre, related_name='fictions')
 
   title = models.CharField(max_length=200)
   starters = models.ManyToManyField(Profile)

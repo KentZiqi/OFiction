@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, url
-from django.contrib.auth.decorators import login_required
 from main.views import *
 from main.account_views import *
 from main.profile_views import *
@@ -27,8 +26,8 @@ urlpatterns = patterns('',
                        url(r'^star/(?P<episode_id>\d+)/', star, name="star"),
 
 
-                       url(r'^profile/$', login_required(profile), name='profile'),
-                       url(r'^profile/edit/?$', login_required(ProfileEditView.as_view()), name='edit_profile'),
+                       url(r'^profile/$', profile_required(profile), name='profile'),
+                       url(r'^profile/edit/?$', profile_required(ProfileEditView.as_view()), name='edit_profile'),
 
                        url(r'^settings/$', settings, name='settings'),
 )

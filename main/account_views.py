@@ -1,10 +1,25 @@
-from django.contrib.auth import authenticate, login as do_login, logout as do_logout
+from django.contrib.auth import authenticate, login as do_login, logout as do_logout, REDIRECT_FIELD_NAME
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm, EmailInput, PasswordInput
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from main.models import ProfilePhoto, Profile
+
+def profile_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
+    """
+    Decorator for views that checks that the user is logged in and has an associated profile, redirecting
+    to the log-in page if necessary.
+    """
+    actual_decorator = user_passes_test(
+        lambda u: u.is_authenticated() and hasattr(u, "profile"),
+        login_url=login_url,
+        redirect_field_name=redirect_field_name
+    )
+    if function:
+        return actual_decorator(function)
+    return actual_decorator
 
 class RegisterForm(ModelForm):
     class Meta:

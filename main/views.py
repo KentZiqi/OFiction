@@ -6,12 +6,12 @@ from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView
 
 def home(request):
-    if request.user.is_anonymous():
+    if not hasattr(request.user, "profile"):
         return render(request, 'index.html', {'request': request})
     episodes = Episode.objects.filter(author=request.user.profile)
     fictions = [episode.fiction for episode in episodes]
     fictions = list(set(fictions))
-    return render(request, 'index.html', {"fictions": fictions, 'episodes': episodes, 'request': request})
+    return render(request, 'index.html', {"fictions": fictions, 'episodes': episodes})
 
 def notifications(request):
     return render(request, 'notifications.html', {})
@@ -28,6 +28,7 @@ def episode(request, episode_id):
     commentForm = CommentForm()
     return render(request, 'episode/episode.html', {'episode': episode, 'commentForm': commentForm, 'stars': stars,
                                                     'children': children, 'request': request})
+
 def comment_create(request, episode_id):
     comment = CommentForm(request.POST)
     episode = get_object_or_404(Episode, pk=episode_id)
@@ -91,7 +92,7 @@ def settings(request):
 
 class FictionCreate(CreateView):
     model = Fiction
-    fields = ["section", "title", "starters", "created_date"]
+    fields = ["genre", "title", "starters", "created_date"]
     template_name_suffix = "_create_form"
     success_url = "/"
 
