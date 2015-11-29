@@ -1,0 +1,23 @@
+{% extends "password_reset/base.html" %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}{% trans "Password recovery" %}{% endblock %}
+
+{% block content %}
+    <form method="post" action="{{ url }}">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="name">{{ field.label }}:</label>
+                <div class="row">
+                    <div class="col-md-8">
+                        {% render_field field class+="form-control margin10" placeholder=field.label %}
+                    </div>
+                    <div class="col-md-4">{{ field.errors.0 }}</div>
+                </div>
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-default btn-primary btn-ofiction-form">{% trans "Recover my password" %}</button>
+    </form>
+{% endblock %}

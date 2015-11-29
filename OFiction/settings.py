@@ -29,7 +29,8 @@ INSTALLED_APPS = (
     'compressor',
     'widget_tweaks',
     'django_extensions',
-    'main'
+    'main',
+    'password_reset',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -103,3 +104,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     'django.core.context_processors.request',
 )
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

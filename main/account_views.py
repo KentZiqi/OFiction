@@ -38,6 +38,13 @@ class RegisterForm(ModelForm):
         super(RegisterForm, self).__init__(*args, **kwargs)
         self.fields['username'].label = 'Email'
 
+    def save(self, force_insert=False, force_update=False, commit=True):
+        form = super(RegisterForm, self).save(commit=False)
+        form.email = form.username
+        if commit:
+            form.save()
+        return form
+
 class RegistrationView(View):
     def get(self, request):
         registerForm = RegisterForm()
