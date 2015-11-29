@@ -1,24 +1,51 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static "pnotify/pnotify.custom.min.css" %}"/>
+{% endblock %}
+{% block javascript %}
+    <script src="{% static "pnotify/pnotify.custom.min.js" %}"></script>
+{% endblock %}
 
 {% block body %}
-<h1>Sign In</h1>
-<br/>
-<div class="account-form">
-    <form role="form" action="" method="POST">
-        {% csrf_token %}
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" class="form-control" id="username" name="username">
+    <h1>Sign In</h1>
+    <br/>
+    <div class="account-form">
+        <form role="form" action="" method="POST">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <button type="submit" class="btn btn-default btn-block btn-primary">Sign in</button>
             </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password">
-            </div>
-            {{ error }}
-            <button type="submit" class="btn btn-default btn-block btn-primary">Sign in</button>
-        </div>
-        <div class="col-md-6"></div>
-    </form>
-</div>
+            <div class="col-md-6"></div>
+        </form>
+    </div>
+    {% if error %}
+        <script>
+            $(document).ready(function () {
+                PNotify.prototype.options.styling = "bootstrap3";
+                $(function () {
+                    var stack_topright = {"dir1": "down", "dir2": "left", "firstpos1": 80, "firstpos2": 20};
+                    new PNotify({
+                                    title: 'Error',
+                                    text: '{{ error }}',
+                                    type: 'error',
+                                    closer_hover: true,
+                                    sticker_hover: false,
+                                    hide: true,
+                                    delay: 8000,
+                                    stack: stack_topright
+                                });
+                });
+            });
+        </script>
+    {% endif %}
 {% endblock %}

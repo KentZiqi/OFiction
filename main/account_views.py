@@ -47,7 +47,7 @@ class RegistrationView(View):
             user.save()
             picture = ProfilePhoto.objects.create()
             Profile.objects.create(user=user, picture=picture)
-            return redirect(reverse('home'))
+            return redirect(reverse('login'))
         return render(request, 'sign_up.html', {'form': registerForm})
 
 def login(request):
