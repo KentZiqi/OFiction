@@ -14,7 +14,11 @@
     <title>Welcome</title>
 </head>
 <body>
-{% include '_navigation_user.html' %}
+{% if request.user.is_anonymous %}
+    {% include '_navigation_all.html' %}
+{% else %}
+    {% include '_navigation_user.html' %}
+{% endif %}
 <div class="col-md-1"></div>
 <div class="content col-md-10">
     <div class="wrapper">

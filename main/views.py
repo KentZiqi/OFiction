@@ -2,8 +2,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect, get_object_or_404
 from main.models import Episode, EpisodeForm, Fiction, CommentForm
 from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, login as do_login, logout as do_logout
 
 # Create your views here.
+
+
 def home(request):
     if request.user.is_anonymous():
         return render(request, 'index.html',{'request':request})
@@ -11,6 +14,27 @@ def home(request):
     fictions = [episode.fiction for episode in episodes]
     fictions = list(set(fictions))
     return render(request, 'index.html', {"fictions": fictions,'episodes':episodes,'request':request})
+
+def login(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user:
+            do_login(request, user)
+            return redirect(reverse('home'))
+        else:
+            return render(request, 'login.html', {
+                'error': 'Authentication failed.',
+                'request':request
+            })
+    else:
+        return render(request, 'login.html',{'request':request})
+
+def logout(request):
+    do_logout(request)
+    return redirect(reverse('home'))
+
 
 def notifications(request):
     return render(request, 'notifications.html', {})
@@ -33,14 +57,14 @@ def comment_create(request,episode_id):
         comment.save()
         return redirect(reverse("episode",kwargs={'episode_id':episode_id}))
     else:
-        return render(request, 'episode/episode.html', {'episode':episode,'commentForm':comment})
+        return render(request, 'episode/episode.html', {'episode':episode,'commentForm':comment,'request':request})
 
 def episode_create(request,fiction_id,parent_id):
     fiction = Fiction.objects.get(id=fiction_id)
     parent = Episode.objects.get(id=parent_id)
     if request.method == 'GET':
         form =  EpisodeForm()
-        return render(request, 'episode/episode_create.html', {'form':form})
+        return render(request, 'episode/episode_create.html', {'form':form,'request':request})
     else:
         form = EpisodeForm(request.POST)
         if form.is_valid():
@@ -52,7 +76,7 @@ def episode_create(request,fiction_id,parent_id):
             return redirect(reverse("episode",kwargs={'episode_id':new_episode.id}))
         else:
             return render(request, 'episode/episode_create.html', {
-                'form': form
+                'form': form, 'request':request
             })
 
 def episode_edit(request,episode_id):
@@ -61,14 +85,14 @@ def episode_edit(request,episode_id):
         return redirect(reverse("episode",kwargs={'episode_id':episode_id}))
     if request.method == 'GET':
         form = EpisodeForm(instance=episode)
-        return render(request,'episode/episode_edit.html',{'form':form})
+        return render(request,'episode/episode_edit.html',{'form':form, 'request':request})
     else:
         form = EpisodeForm(request.POST, instance=episode)
         if form.is_valid():
             form.save()
             return redirect(reverse("episode",kwargs={'episode_id':episode_id}))
         else:
-            return render(request,'episode/episode_edit.html',{'form':form})
+            return render(request,'episode/episode_edit.html',{'form':form, 'request':request})
 
 
 def star(request,episode_id):
@@ -88,14 +112,9 @@ def storyline(request):
 def settings(request):
     return render(request, 'settings.html', {})
 
-def sign_in(request):
-    return render(request, 'sign_in.html', {})
-
 def sign_up(request):
     return render(request, 'sign_up.html', {})
 
-def welcome(request):
-    return render(request, 'welcome.html', {})
 
 from django.views.generic.edit import CreateView
 from main.models import Fiction, Episode, Profile

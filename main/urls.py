@@ -15,9 +15,9 @@ urlpatterns = patterns('',
     url(r'^profile/$', profile, name='profile'),
     url(r'^storyline/$', storyline, name='storyline'),
     url(r'^settings/$', settings, name='settings'),
-    url(r'^sign_in/$', sign_in, name='sign_in'),
+    url(r'^login/$', login, name='login'),
+    url(r'^logout/$',logout,name='logout'),
     url(r'^sign_up/$', sign_up, name='sign_up'),
-    url(r'^welcome/$', welcome, name='welcome'),
 
     url(r'^fiction/new/$', FictionCreate.as_view(), name='create_fiction'),
 
