@@ -75,6 +75,9 @@ STATIC_ROOT = os.path.join(ENV_PATH, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(ENV_PATH, 'media')
 
+LOGIN_URL = "/login/"
+LOGOUT_URL = "/logout/"
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
