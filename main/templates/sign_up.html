@@ -10,10 +10,15 @@
             {% for field in form %}
                 <div class="form-group">
                     <label for="name">{{ field.label }}:</label>
-                    {% render_field field class+="form-control margin10" placeholder=field.label %}
+                    <div class="row">
+                        <div class="col-md-8">
+                            {% render_field field class+="form-control margin10" placeholder=field.label %}
+                        </div>
+                        <div class="col-md-4">{{ field.errors.0 }}</div>
+                    </div>
                 </div>
             {% endfor %}
-            <input class="btn btn-default btn-block btn-primary margin10" id="register" type="submit" name="profile"
+            <input class="btn btn-default btn-ofiction-form btn-primary margin10" id="register" type="submit" name="profile"
                    value="Sign up"/>
         </form>
     </div>

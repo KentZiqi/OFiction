@@ -1,3 +1,4 @@
+from django.forms import *
 from django.contrib.auth import authenticate, login as do_login, logout as do_logout, REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
@@ -33,6 +34,9 @@ class RegisterForm(ModelForm):
                 'required': True
             }),
         }
+    def __init__(self, *args, **kwargs):
+        super(RegisterForm, self).__init__(*args, **kwargs)
+        self.fields['username'].label = 'Email'
 
 class RegistrationView(View):
     def get(self, request):
@@ -50,18 +54,38 @@ class RegistrationView(View):
             return redirect(reverse('login'))
         return render(request, 'sign_up.html', {'form': registerForm})
 
-def login(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
+class LoginForm(Form):
+    email = EmailField(max_length=255, required=True)
+    password = CharField(widget=PasswordInput, required=True)
+
+    def clean(self):
+        username = self.cleaned_data.get('email')
+        password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
-        if user:
-            do_login(request, user)
-            return redirect(reverse('home'))
+        if not user or not user.is_active:
+            raise ValidationError("Invalid email and password combination.")
+        return self.cleaned_data
+
+    def login(self):
+        username = self.cleaned_data.get('email')
+        password = self.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        return user
+
+class LoginView(View):
+    def get(self, request):
+        form = LoginForm()
+        return render(request, 'login.html', {'form': form})
+
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = form.login()
+            if user:
+                do_login(request, user)
+                return redirect(reverse('home'))
         else:
-            return render(request, 'login.html', {'error': 'Authentication failed.', 'request': request})
-    else:
-        return render(request, 'login.html', {'request': request})
+            return render(request, 'login.html', {'form': form})
 
 def logout(request):
     do_logout(request)
