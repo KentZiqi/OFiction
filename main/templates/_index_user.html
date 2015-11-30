@@ -21,8 +21,8 @@
                 {% for episode in episodes %}
                     {% if episode.fiction.id == fiction.id %}
                         <li class="list-group-item">
-                        <a href="{% url 'episode' episode.id %}">{{ episode.title }}</a>
-                        <span style="float: right">
+                        <a href="{% url 'episode' episode.id %}">{{ episode }}</a>
+                        <span style="float: right"> <a href="{% url 'episode_create' episode.fiction.id episode.id %}">Evolve</a> |
                             <a href="{% url 'episode_edit' episode.id %}">Edit</a>
                         </span>
                         </li>
