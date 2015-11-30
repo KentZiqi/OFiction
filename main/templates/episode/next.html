@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <ul>
+        {% for child in children %}
+            <h3><a href="{% url 'episode' child.id %}">{{ child }}</a></h3>
+            <p>{{ child.summary }}</p>
+
+        {% endfor %}
+    </ul>
+{% endblock %}

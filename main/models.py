@@ -104,12 +104,19 @@ class Episode(models.Model):
   title = models.CharField(max_length=200)
   author = models.ForeignKey(Profile)
   content = models.TextField(default="This episode is empty")
-  stars = models.ManyToManyField(Profile,related_name="likers")
+  stars = models.ManyToManyField(Profile,related_name="favorites")
   created_date = models.DateTimeField(default=datetime.datetime.now)
   summary = models.TextField()
 
+  def getID(self):
+      episodes = self.fiction.episode_set.all()
+      return list(episodes).index(self)+1
+
+  def star(self,profile):
+      self.stars.add(profile)
+
   def __str__(self):
-      return self.title + " by " + str(self.author)
+      return "#" + str(self.getID())+": " + self.fiction.title+"/" + self.title
 
 class EpisodeVersion(models.Model):
   episode = models.ForeignKey(Episode)

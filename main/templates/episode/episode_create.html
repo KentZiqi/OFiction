@@ -2,6 +2,7 @@
 {% load widget_tweaks %}
 
 {% block body %}
+    {% load widget_tweaks %}
     <form method="POST" action="">
         {% csrf_token %}
         {{ form.media }}

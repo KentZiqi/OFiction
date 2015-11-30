@@ -17,6 +17,7 @@ urlpatterns = patterns('',
                            name='episode_create'),
                        url(r'^episode/(?P<episode_id>\d+)/edit/$', episode_edit, name='episode_edit'),
 
+                       url(r'^next/(?P<episode_id>\d+)/$', next, name='next'),
                        url(r'^explore/$', explore, name='explore'),
                        url(r'^storyline/$', storyline, name='storyline'),
 

@@ -83,8 +83,13 @@ def episode_edit(request, episode_id):
 
 def star(request, episode_id):
     episode = get_object_or_404(Episode, pk=episode_id)
-    episode.stars.add(request.user.profile)
+    episode.star(request.user.profile)
     return redirect(reverse("episode", kwargs={'episode_id': episode_id}))
+
+def next(request, episode_id):
+    episode = get_object_or_404(Episode, pk=episode_id)
+    children = episode.children.all()
+    return render(request,'episode/next.html',{'children':children})
 
 def explore(request):
     return render(request, 'explore.html', {})
@@ -111,5 +116,3 @@ class FictionCreate(CreateView):
         fiction.root = root
         fiction.save()
         return HttpResponseRedirect(self.get_success_url())
-
-
