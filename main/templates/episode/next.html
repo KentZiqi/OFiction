@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <ul>
         {% for child in children %}
             <h3><a href="{% url 'episode' child.id %}">{{ child }}</a></h3>
+            <p>stars: {{ child.popularity }} | author: {{ child.author.display_name }} | date:{{ child.created_date }}</p>
             <p>{{ child.summary }}</p>
 
         {% endfor %}
-    </ul>
 {% endblock %}

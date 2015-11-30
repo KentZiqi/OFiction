@@ -106,7 +106,8 @@ class Episode(models.Model):
   content = models.TextField(default="This episode is empty")
   stars = models.ManyToManyField(Profile,related_name="favorites")
   created_date = models.DateTimeField(default=datetime.datetime.now)
-  summary = models.TextField()
+  summary = models.TextField(blank=True, null=True)
+  popularity = models.IntegerField(default=0)
 
   def getID(self):
       episodes = self.fiction.episode_set.all()
@@ -114,6 +115,7 @@ class Episode(models.Model):
 
   def star(self,profile):
       self.stars.add(profile)
+      self.popularity = len(self.stars.all())
 
   def __str__(self):
       return "#" + str(self.getID())+": " + self.fiction.title+"/" + self.title

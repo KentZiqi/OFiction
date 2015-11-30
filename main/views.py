@@ -23,10 +23,9 @@ class CommentForm(ModelForm):
 
 def episode(request, episode_id):
     episode = Episode.objects.get(id=episode_id)
-    stars = len(episode.stars.all())
     children = len(episode.children.all())
     commentForm = CommentForm()
-    return render(request, 'episode/episode.html', {'episode': episode, 'commentForm': commentForm, 'stars': stars,
+    return render(request, 'episode/episode.html', {'episode': episode, 'commentForm': commentForm,
                                                     'children': children, 'request': request})
 
 def comment_create(request, episode_id):
@@ -84,11 +83,12 @@ def episode_edit(request, episode_id):
 def star(request, episode_id):
     episode = get_object_or_404(Episode, pk=episode_id)
     episode.star(request.user.profile)
+    episode.save()
     return redirect(reverse("episode", kwargs={'episode_id': episode_id}))
 
 def next(request, episode_id):
     episode = get_object_or_404(Episode, pk=episode_id)
-    children = episode.children.all()
+    children = episode.children.order_by('-popularity')
     return render(request,'episode/next.html',{'children':children})
 
 def explore(request):
