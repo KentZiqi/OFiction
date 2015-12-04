@@ -5,11 +5,19 @@
     <form method="POST" action="">
         {% csrf_token %}
         {% for field in form %}
-            <div class="form-group">
+            {% if field|widget_type == "select" %}
                 <label for="name">{{ field.label }}:</label>
-                {% render_field field class+="form-control margin10" placeholder=field.label %}
-            </div>
+                {% render_field field class+="form-control margin10 btn-ofiction-form" placeholder=field.label %}
+                <div class="margin20">{{ field.errors.0 }}</div>
+            {% else %}
+                <div class="form-group">
+                    <label for="name">{{ field.label }}:</label>
+                    {% render_field field class+="form-control margin10" placeholder=field.label %}
+                    <div class="margin20">{{ field.errors.0 }}</div>
+                </div>
+            {% endif %}
         {% endfor %}
+        <div class="margin20"></div>
         <input class="btn btn-default btn-block btn-primary margin10" id="register" type="submit" name="edit_episode"
                value="Create Episode"/>
     </form>

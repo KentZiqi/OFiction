@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, ChoiceField, Select
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from main.models import Comment, Fiction, Episode, Profile
@@ -40,16 +40,27 @@ def comment_create(request, episode_id):
     else:
         return render(request, 'episode/episode.html', {'episode': episode, 'commentForm': comment, 'request': request})
 
+BEFORE_AFTER_CHOICE =(
+    ('0', 'Before'),
+    ('1', 'After'),
+)
 class EpisodeForm(ModelForm):
     class Meta:
         model = Episode
-        fields = ['title', 'summary', 'content']
+        fields = ['title', 'summary', 'content', 'after']
+        widgets = {
+            'after': Select(choices=BEFORE_AFTER_CHOICE),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(EpisodeForm, self).__init__(*args, **kwargs)
+        self.fields['after'].label = 'Where does this episode come sequentially?'
 
 def episode_create(request, fiction_id, parent_id):
     fiction = Fiction.objects.get(id=fiction_id)
     parent = Episode.objects.get(id=parent_id)
     if request.method == 'GET':
-        form = EpisodeForm()
+        form = EpisodeForm(initial={'after': '1'})
         return render(request, 'episode/episode_create.html', {'form': form, 'request': request})
     else:
         form = EpisodeForm(request.POST)
@@ -70,7 +81,7 @@ def episode_edit(request, episode_id):
     if request.user.profile.id != episode.author.id:
         return redirect(reverse("episode", kwargs={'episode_id': episode_id}))
     if request.method == 'GET':
-        form = EpisodeForm(instance=episode)
+        form = EpisodeForm(instance=episode, initial={'after':'1'})
         return render(request, 'episode/episode_edit.html', {'form': form, 'request': request})
     else:
         form = EpisodeForm(request.POST, instance=episode)
