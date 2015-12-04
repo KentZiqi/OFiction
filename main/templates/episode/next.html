@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body %}
-        {% for child in children %}
-            <h3><a href="{% url 'episode' child.id %}">{{ child }}</a></h3>
-            <p>stars: {{ child.popularity }} | author: {{ child.author.display_name }} | date:{{ child.created_date }}</p>
-            <p>{{ child.summary }}</p>
-
-        {% endfor %}
+    {% for child in children %}
+        <h3><a href="{% url 'episode' child.id %}">{{ child }}</a></h3>
+        <p>Stars: {{ child.popularity }} | Author: {{ child.author.display_name }} | Creation Date: {{ child.created_date }}</p>
+        <p>{{ child.summary }}</p>
+    {% endfor %}
 {% endblock %}
