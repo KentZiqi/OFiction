@@ -43,12 +43,7 @@
 
     <nav>
         <ul class="pager">
-            {% if not episode.parent %}
-                <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>
-            {% else %}
-                <li class="previous"><a href="{% url 'episode' episode.parent.id %}"><span
-                        aria-hidden="true">&larr;</span> Previous</a></li>
-            {% endif %}
+            <li class="previous"><a href="{% url 'previous' episode.id %}"><span aria-hidden="true">&larr;</span> Previous</a></li>
             <li class="next"><a href="{% url 'next' episode.id %}">Next<span aria-hidden="true">&rarr;</span></a></li>
         </ul>
     </nav>

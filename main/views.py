@@ -101,10 +101,21 @@ def star(request, episode_id):
     episode.save()
     return redirect(reverse("episode", kwargs={'episode_id': episode_id}))
 
+def previous(request, episode_id):
+    episode = get_object_or_404(Episode, pk=episode_id)
+    previous = list(episode.children.filter(after=False))
+    if episode.after and episode.parent:
+        previous.append(episode.parent)
+    previous.sort(key=lambda episode: episode.popularity, reverse=True)
+    return render(request, 'episode/next.html', {'children': previous})
+
 def next(request, episode_id):
     episode = get_object_or_404(Episode, pk=episode_id)
-    children = episode.children.order_by('-popularity')
-    return render(request,'episode/next.html',{'children':children})
+    next = list(episode.children.filter(after=True))
+    if not episode.after:
+        next.append(episode.parent)
+    next.sort(key=lambda episode: episode.popularity, reverse=True)
+    return render(request,'episode/next.html', {'children': next})
 
 def explore(request):
     return render(request, 'explore.html', {})

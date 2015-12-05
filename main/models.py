@@ -111,7 +111,7 @@ class Episode(models.Model):
 
   def getID(self):
       episodes = self.fiction.episode_set.all()
-      return list(episodes).index(self)+1
+      return list(episodes).index(self) + 1
 
   def star(self, profile):
       self.stars.add(profile)
