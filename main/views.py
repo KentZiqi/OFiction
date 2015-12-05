@@ -23,10 +23,13 @@ class CommentForm(ModelForm):
 
 def episode(request, episode_id):
     episode = Episode.objects.get(id=episode_id)
-    children = len(episode.children.all())
+    evolve_count = len(episode.children.all())
     commentForm = CommentForm()
     starred = request.user.profile in episode.stars.all()
-    return render(request, 'episode/episode.html', {'episode': episode, 'starred': starred, 'commentForm': commentForm, 'children': children, 'request': request})
+    previous = episode.previous()
+    next = episode.next()
+    return render(request, 'episode/episode.html',
+                  {'episode': episode, 'previous_list': previous, 'next_list': next, 'starred': starred, 'evolve_count': evolve_count, 'commentForm': commentForm})
 
 def comment_create(request, episode_id):
     comment = CommentForm(request.POST)
@@ -100,22 +103,6 @@ def star(request, episode_id):
         episode.star(profile)
     episode.save()
     return redirect(reverse("episode", kwargs={'episode_id': episode_id}))
-
-def previous(request, episode_id):
-    episode = get_object_or_404(Episode, pk=episode_id)
-    previous = list(episode.children.filter(after=False))
-    if episode.after and episode.parent:
-        previous.append(episode.parent)
-    previous.sort(key=lambda episode: episode.popularity, reverse=True)
-    return render(request, 'episode/next.html', {'children': previous})
-
-def next(request, episode_id):
-    episode = get_object_or_404(Episode, pk=episode_id)
-    next = list(episode.children.filter(after=True))
-    if not episode.after:
-        next.append(episode.parent)
-    next.sort(key=lambda episode: episode.popularity, reverse=True)
-    return render(request,'episode/next.html', {'children': next})
 
 def explore(request):
     return render(request, 'explore.html', {})
