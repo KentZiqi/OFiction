@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 {% block body %}
-    <form action="" method="post">
+    <form method="POST" action="">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Create Story"/>
+        {% for field in form %}
+            {% if field|widget_type == "select" %}
+                <label for="name">{{ field.label }}:</label>
+                {% render_field field class+="form-control margin10 btn-ofiction-form" placeholder=field.label %}
+                <div class="margin20">{{ field.errors.0 }}</div>
+            {% else %}
+                <div class="form-group">
+                    <label for="name">{{ field.label }}:</label>
+                    {% render_field field class+="form-control margin10" placeholder=field.label %}
+                    <div class="margin20">{{ field.errors.0 }}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <div class="margin20"></div>
+        <input class="btn btn-default btn-block btn-primary margin10" id="register" type="submit" name="edit_episode"
+               value="Create New Fiction"/>
     </form>
 {% endblock %}
