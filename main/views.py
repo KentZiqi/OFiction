@@ -25,8 +25,8 @@ def episode(request, episode_id):
     episode = Episode.objects.get(id=episode_id)
     children = len(episode.children.all())
     commentForm = CommentForm()
-    return render(request, 'episode/episode.html', {'episode': episode, 'commentForm': commentForm,
-                                                    'children': children, 'request': request})
+    starred = request.user.profile in episode.stars.all()
+    return render(request, 'episode/episode.html', {'episode': episode, 'starred': starred, 'commentForm': commentForm, 'children': children, 'request': request})
 
 def comment_create(request, episode_id):
     comment = CommentForm(request.POST)
@@ -93,7 +93,11 @@ def episode_edit(request, episode_id):
 
 def star(request, episode_id):
     episode = get_object_or_404(Episode, pk=episode_id)
-    episode.star(request.user.profile)
+    profile = request.user.profile
+    if request.user.profile in episode.stars.all():
+        episode.unstar(profile)
+    else:
+        episode.star(profile)
     episode.save()
     return redirect(reverse("episode", kwargs={'episode_id': episode_id}))
 

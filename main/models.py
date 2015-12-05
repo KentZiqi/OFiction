@@ -113,8 +113,12 @@ class Episode(models.Model):
       episodes = self.fiction.episode_set.all()
       return list(episodes).index(self)+1
 
-  def star(self,profile):
+  def star(self, profile):
       self.stars.add(profile)
+      self.popularity = len(self.stars.all())
+
+  def unstar(self, profile):
+      self.stars.remove(profile)
       self.popularity = len(self.stars.all())
 
   def __str__(self):
