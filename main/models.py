@@ -111,12 +111,20 @@ class Episode(models.Model):
     summary = models.TextField(blank=True, null=True)
     popularity = models.IntegerField(default=0)
 
+    def previous_ids_without_parent(self):
+        previous_list = list(self.children.filter(after=False))
+        return [previous.id for previous in previous_list]
+
     def previous(self):
         previous = list(self.children.filter(after=False))
         if self.after and self.parent:
             previous.append(self.parent)
         previous.sort(key=lambda episode: episode.popularity, reverse=True)
         return previous
+
+    def next_ids_without_parent(self):
+        next_list = list(self.children.filter(after=True))
+        return [next.id for next in next_list]
 
     def next(self):
         next = list(self.children.filter(after=True))

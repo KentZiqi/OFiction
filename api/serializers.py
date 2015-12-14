@@ -16,7 +16,7 @@ class FictionSerializer(serializers.ModelSerializer):
 class EpisodeSummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Episode
-        fields = ('id', 'title', 'author', 'summary', 'popularity', 'created_date')
+        fields = ('id', 'title', 'author', 'summary', 'popularity', 'created_date', 'previous_ids_without_parent', 'next_ids_without_parent')
 
 class EpisodeFullSerializer(serializers.ModelSerializer):
     class Meta:
