@@ -26,10 +26,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3_sass',
+    'rest_framework',
     'compressor',
     'widget_tweaks',
     'django_extensions',
     'main',
+    'api',
     'password_reset',
 )
 
