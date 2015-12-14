@@ -14,10 +14,15 @@ $(function () {
                                                selector: 'node',
                                                style: {
                                                    'content': 'data(label)',
-                                                   'text-opacity': 0.5,
                                                    'text-valign': 'center',
-                                                   'text-halign': 'center',
-                                                   'background-color': '#11479e'
+                                                   'text-halign': 'right',
+                                                   'background-color': '#4971b5',
+                                                   'color': '#333',
+                                                   'text-wrap': 'wrap',
+                                                   'text-max-width': 160,
+                                                   'shape': 'circle',
+                                                   'width': 'data(popularity)',
+                                                   'height': 'data(popularity)'
                                                }
                                            },
 
@@ -25,9 +30,10 @@ $(function () {
                                                selector: 'edge',
                                                style: {
                                                    'width': 4,
+                                                   'opacity': 0.4,
                                                    'target-arrow-shape': 'triangle',
-                                                   'line-color': '#9dbaea',
-                                                   'target-arrow-color': '#9dbaea'
+                                                   'line-color': '#4971b5',
+                                                   'target-arrow-color': '#4971b5'
                                                }
                                            }
                                        ]

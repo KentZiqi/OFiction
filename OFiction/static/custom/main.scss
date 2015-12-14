@@ -57,63 +57,6 @@ html, body {
   height: 300px;
 }
 
-.tree {
-  position: relative;
-  height: 600px;
-  div {
-    position: absolute;
-    width: 150px;
-    height: 30px;
-    .circle {
-      position: absolute;
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background-color: #333;
-    }
-    .active {
-      background-color: red;
-    }
-    .node-text {
-      color: #333333;
-      position: absolute;
-      top: 4px;
-      left: 40px;
-      display: inline-block;
-      font-size: 18px;
-    }
-  }
-  #node-1-container {
-    top: 0px;
-    left: 0px;
-  }
-  #node-2-container {
-    top: 50px;
-    left: 0px;
-  }
-  #node-3-container {
-    top: 100px;
-    left: 0px;
-  }
-  #node-4-container {
-    top: 150px;
-    left: 0px;
-  }
-  #node-5-container {
-    top: 150px;
-    left: 230px;
-  }
-  #node-6-container {
-    top: 200px;
-    left: 0px;
-  }
-  #node-7-container {
-    top: 200px;
-    left: 230px;
-  }
-}
-
 .dot {
   color: #333;
   background-color: #333;

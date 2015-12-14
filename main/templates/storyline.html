@@ -29,6 +29,7 @@
                     node.data["id"] = value.id;
                     node.data["label"] = value.title;
                     node.data["summary"] = value.summary;
+                    node.data["popularity"] = value.popularity * 5 + 15;
                     cy.add(node);
                     jsonQ.each(value.previous_ids_without_parent, function (key, value) {
                         var edge = {group: "edges", data: {}};
