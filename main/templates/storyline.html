@@ -11,6 +11,7 @@
     <script src="{% static "js/cytoscape-dagre.js" %}"></script>
     <script src="{% static "js/jquery.qtip.min.js" %}"></script>
     <script src="{% static "js/cytoscape-qtip.js" %}"></script>
+    <script src="{% static "js/jsonQ.min.js" %}"></script>
     <script src="{% static "custom/storyline.js" %}"></script>
 {% endblock %}
 
@@ -18,41 +19,61 @@
     <div id="cy"></div>
     <script>
         $(document).ready(function () {
-            $.getJSON("{% static "custom/file.json" %}", function (json) {
-                cy.add(json);
+            $.ajax({
+                       url: "/api/fiction/1/"
+                   }).then(function (content) {
+                var edge_list = [];
+                jsonQ.each(content, function (key, value) {
+                    var node = {group: "nodes", data: {}};
+                    var id = value.id;
+                    node.data["id"] = value.id;
+                    node.data["label"] = value.title;
+                    node.data["summary"] = value.summary;
+                    cy.add(node);
+                    jsonQ.each(value.previous_ids_without_parent, function (key, value) {
+                        var edge = {group: "edges", data: {}};
+                        edge.data["source"] = value;
+                        edge.data["target"] = id;
+                        edge_list.push(edge);
+                    });
+                    jsonQ.each(value.next_ids_without_parent, function (key, value) {
+                        var edge = {group: "edges", data: {}};
+                        edge.data["source"] = id;
+                        edge.data["target"] = value;
+                        edge_list.push(edge);
+                    });
+                });
+                jsonQ.each(edge_list, function (key, value) {
+                    cy.add(value);
+                });
                 cy.layout({name: "dagre"});
                 cy.on('mouseover', 'node', function (event) {
                     var node = event.cyTarget;
-                    var link = node.attr('href');
-                    $.ajax({
-                               url: link
-                           }).then(function (content) {
-                        var link_content = content;
-                        node.qtip({
-                                      content: link_content,
-                                      position: {
-                                          at: 'bottom center'
-                                      },
-                                      show: {
-                                          event: "mouseover",
-                                          solo: true,
-                                          ready: true
-                                      },
-                                      hide: {
-                                          event: 'mouseout'
-                                      },
-                                      style: {
-                                          classes: 'qtip-bootstrap',
-                                          tip: {
-                                              width: 16,
-                                              height: 8
-                                          }
+                    var summary = node.attr('summary');
+                    node.qtip({
+                                  content: summary,
+                                  position: {
+                                      at: 'bottom center'
+                                  },
+                                  show: {
+                                      event: "mouseover",
+                                      solo: true,
+                                      ready: true
+                                  },
+                                  hide: {
+                                      event: 'mouseout'
+                                  },
+                                  style: {
+                                      classes: 'qtip-bootstrap',
+                                      tip: {
+                                          width: 16,
+                                          height: 8
                                       }
-                                  }, event);
-                    }, function (xhr, status, error) {
-                        console.log(error);
-                    });
+                                  }
+                              }, event);
                 });
+            }, function (xhr, status, error) {
+                console.log(error);
             });
         });
     </script>
