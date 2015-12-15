@@ -134,7 +134,7 @@ def settings(request):
 
 class FictionCreate(CreateView):
     model = Fiction
-    fields = ["genre", "title", "starters", "created_date"]
+    fields = ["genre", "title", "created_date"]
     template_name_suffix = "_create_form"
     success_url = reverse_lazy("home")
 
@@ -142,7 +142,7 @@ class FictionCreate(CreateView):
         user = self.request.user
         profile = Profile.objects.get(user=user)
         self.object = form.save()
-        root = Episode(fiction=self.object, title="Hello World", author=profile)
+        root = Episode(fiction=self.object, title="Edit Me", summary="Add your summary here", author=profile)
         root.save()
         fiction = Fiction.objects.get(pk=self.object.pk)
         fiction.root = root
