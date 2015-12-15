@@ -24,20 +24,24 @@
         <div class="col-md-6">
             <div class="text-center">
                 <div class="left-align">
-                    <h3>Previous Episodes</h3>
-                    {% for previous in previous_list %}
-                        <div><a href="{% url 'episode' previous.id %}">{{ previous }}</a></div>
-                    {% endfor %}
+                    {% if previous_list %}
+                        <h3>Previous Episodes</h3>
+                        {% for previous in previous_list %}
+                            <div><a href="{% url 'episode' previous.id %}">{{ previous }}</a></div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="text-center">
                 <div class="left-align">
-                    <h3>Next Episodes</h3>
-                    {% for next in next_list %}
-                        <div><a href="{% url 'episode' next.id %}">{{ next }}</a></div>
-                    {% endfor %}
+                    {% if next_list %}
+                        <h3>Next Episodes</h3>
+                        {% for next in next_list %}
+                            <div><a href="{% url 'episode' next.id %}">{{ next }}</a></div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -45,7 +49,10 @@
     <br/>
     <div class="nounderline">
         <a href="{% url 'fiction' episode.fiction.id %}">
-            <button class="btn btn-default btn-primary center-block">See entire storyline</button>
+            <button class="btn btn-default btn-primary">View entire fiction tree</button>
+        </a>
+         <a href="{% url 'storyline' episode.id %}">
+            <button class="btn btn-default btn-primary">View storyline from Beginning</button>
         </a>
     </div>
     <hr/>
