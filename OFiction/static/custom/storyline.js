@@ -1,6 +1,11 @@
 $(document).ready(function () {
     var fiction_id = $('#fiction_id').text();
 
+    function randomRGB(){
+        return "rgb(" + (Math.random()*255 | 0).toString()
+            + "," + (Math.random()*255 | 0).toString() + "," + (Math.random()*255 | 0).toString() + ")";
+    }
+
     function episodeInformation(id, summary) {
         return summary +
             "<div class='margin20'></div>" +
@@ -26,7 +31,7 @@ $(document).ready(function () {
                                                    'content': 'data(label)',
                                                    'text-valign': 'center',
                                                    'text-halign': 'right',
-                                                   'background-color': '#4971b5',
+                                                   'background-color': 'data(color)',
                                                    'color': '#333',
                                                    'text-wrap': 'wrap',
                                                    'text-max-width': 160,
@@ -84,6 +89,7 @@ $(document).ready(function () {
             var id = value.id;
             node.data["id"] = value.id;
             node.data["label"] = value.title;
+            node.data["color"] = randomRGB();
             node.data["summary"] = episodeInformation(id, value.summary);
             node.data["popularity"] = value.popularity * 5 + 15; // TODO: Improve algorithm relating bubble size to popularity
             cy.add(node);
