@@ -23,20 +23,26 @@
     <div class="row">
         <div class="col-md-6">
             <div class="text-center">
-                <h3>Previous Episodes</h3>
-                {% for previous in previous_list %}
-                    <div><a href="{% url 'episode' previous.id %}">{{ previous }}</a></div>
-                {% endfor %}
+                <div class="left-align">
+                    <h3>Previous Episodes</h3>
+                    {% for previous in previous_list %}
+                        <div><a href="{% url 'episode' previous.id %}">{{ previous }}</a></div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         <div class="col-md-6">
-            <h3>Next Episodes</h3>
-            {% for next in next_list %}
-                <div><a href="{% url 'episode' next.id %}">{{ next }}</a></div>
-            {% endfor %}
+            <div class="text-center">
+                <div class="left-align">
+                    <h3>Next Episodes</h3>
+                    {% for next in next_list %}
+                        <div><a href="{% url 'episode' next.id %}">{{ next }}</a></div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
-    <br />
+    <br/>
     <div class="nounderline">
         <a href="{% url 'storyline' episode.fiction.id %}">
             <button class="btn btn-default btn-primary center-block">See entire storyline</button>
