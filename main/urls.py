@@ -24,6 +24,8 @@ urlpatterns = patterns('',
 
                        url(r'^storyline/(?P<episode_id>\d+)/?$', storyline, name='storyline'),
 
+                       url(r'^pdf/(?P<pdf_name>.+)/?$', pdf, name='pdf'),
+
                        url(r'^comment/(?P<episode_id>\d+)/?', comment_create, name="comment_create"),
                        url(r'^star/(?P<episode_id>\d+)/?', star, name="star"),
 

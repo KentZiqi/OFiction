@@ -21,3 +21,4 @@ ipdb==0.8.1
 djangorestframework==3.2.4
 requests==2.8.1
 beautifulsoup4==4.4.1
+fpdf==1.7.2

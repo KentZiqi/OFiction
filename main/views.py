@@ -1,5 +1,8 @@
+import os
+import urllib.parse
+from django.conf import settings as django_settings
 from django.forms import ModelForm, ChoiceField, Select
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from main.models import Comment, Fiction, Episode, Profile, Genre
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -29,7 +32,8 @@ def episode(request, episode_id):
     previous = episode.previous()
     next = episode.next()
     return render(request, 'episode/episode.html',
-                  {'episode': episode, 'previous_list': previous, 'next_list': next, 'starred': starred, 'evolve_count': evolve_count, 'commentForm': commentForm})
+                  {'episode': episode, 'previous_list': previous, 'next_list': next, 'starred': starred,
+                   'evolve_count': evolve_count, 'commentForm': commentForm})
 
 def comment_create(request, episode_id):
     comment = CommentForm(request.POST)
@@ -43,10 +47,11 @@ def comment_create(request, episode_id):
     else:
         return render(request, 'episode/episode.html', {'episode': episode, 'commentForm': comment, 'request': request})
 
-BEFORE_AFTER_CHOICE =(
+BEFORE_AFTER_CHOICE = (
     ('1', 'After'),
     ('0', 'Before'),
 )
+
 class EpisodeForm(ModelForm):
     class Meta:
         model = Episode
@@ -112,22 +117,47 @@ def explore(request):
     genres = Genre.objects.all()
     for genre in genres:
         fics = list(Fiction.objects.filter(genre=genre))
-        fictions[genre] = sorted(fics,key=lambda x: x.popularity(), reverse=True)
-    return render(request, 'explore.html', {'fictions':fictions,'genres':genres})
+        fictions[genre] = sorted(fics, key=lambda x: x.popularity(), reverse=True)
+    return render(request, 'explore.html', {'fictions': fictions, 'genres': genres})
 
 def fiction(request, fiction_id):
     fiction = get_object_or_404(Fiction, pk=fiction_id)
-    return render(request, 'fiction.html', {'fiction': fiction,'fiction_id':fiction_id})
+    return render(request, 'fiction.html', {'fiction': fiction, 'fiction_id': fiction_id})
+
+from fpdf import FPDF, HTMLMixin
+
+class HTMLPDF(FPDF, HTMLMixin):
+    pass
+
+def generate_pdf(episode, episodes):
+    pdf = HTMLPDF()
+    pdf.add_page()
+    for episode in episodes:
+        pdf.write_html("<h1>" + episode.title + "</h1>")
+        pdf.write_html(episode.content)
+    pdf_name = urllib.parse.quote(episode.fiction.title) + '_' + ''.join(
+        [str(episode.id) for episode in episodes])
+    pdf.output(os.path.join(django_settings.MEDIA_ROOT, 'fictions', pdf_name + '.pdf'), 'F')
+    return pdf_name
 
 def storyline(request, episode_id):
     episode = get_object_or_404(Episode, pk=episode_id)
     fiction = episode.fiction
     episodes = [episode]
-    episode = episode.parent
-    while episode:
-        episodes.insert(0,episode)
-        episode = episode.parent
-    return render(request,'storyline.html',{'episodes':episodes,'fiction':fiction})
+    previous_episode_list = episode.previous()
+    while previous_episode_list:
+        episode = previous_episode_list[0]
+        episodes.insert(0, episode)
+        previous_episode_list = episode.previous()
+    pdf_name = generate_pdf(episode, episodes)
+    return render(request, 'storyline.html', {'episodes': episodes, 'fiction': fiction, 'pdf_name': pdf_name})
+
+def pdf(request, pdf_name):
+    with open(os.path.join(django_settings.MEDIA_ROOT, 'fictions', pdf_name + '.pdf'), 'rb') as pdf:
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'filename=' + pdf_name + '.pdf'
+        return response
+    pdf.closed
 
 def settings(request):
     return render(request, 'settings.html', {})
