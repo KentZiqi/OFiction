@@ -94,9 +94,8 @@ class Fiction(models.Model):
     created_date = models.DateTimeField(default=datetime.datetime.now)
     root = models.ForeignKey("main.Episode", related_name="start", null=True)
 
-    # TODO: Make it so that it doesn't print a comma and space after the last author
     def __str__(self):
-        return self.title + " by " + ([str(author) + ", " for author in self.starters.all()][0])
+        return self.title + " by " + str(self.starter)
 
     def popularity(self):
         popularity = 0
