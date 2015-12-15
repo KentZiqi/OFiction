@@ -108,7 +108,8 @@ def explore(request):
     return render(request, 'explore.html', {})
 
 def storyline(request, fiction_id):
-    return render(request, 'storyline.html', {'fiction_id': fiction_id})
+    fiction = get_object_or_404(Fiction, pk=fiction_id)
+    return render(request, 'storyline.html', {'fiction': fiction,'fiction_id':fiction_id})
 
 def settings(request):
     return render(request, 'settings.html', {})

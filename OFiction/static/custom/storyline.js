@@ -11,7 +11,7 @@ $(document).ready(function () {
     function episodeInformation(id, summary) {
         return summary +
             "<div class='margin20'></div>" +
-            "<a href='/episode/" + id + "'><div class='btn btn-default'>Read/Edit in episode view</div></a>" +
+            "<a href='/episode/" + id + "'><div class='btn btn-default'>Expand in episode view</div></a>" +
             "<div class='margin10'></div>" +
             "<a href='/episode/new/" + fiction_id + "/" + id + "'><div class='btn btn-default'>Evolve this episode</div></a>";
     }
