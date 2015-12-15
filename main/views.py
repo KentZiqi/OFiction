@@ -44,8 +44,8 @@ def comment_create(request, episode_id):
         return render(request, 'episode/episode.html', {'episode': episode, 'commentForm': comment, 'request': request})
 
 BEFORE_AFTER_CHOICE =(
-    ('0', 'Before'),
     ('1', 'After'),
+    ('0', 'Before'),
 )
 class EpisodeForm(ModelForm):
     class Meta:
@@ -85,7 +85,7 @@ def episode_edit(request, episode_id):
     if request.user.profile.id != episode.author.id:
         return redirect(reverse("episode", kwargs={'episode_id': episode_id}))
     if request.method == 'GET':
-        form = EpisodeForm(instance=episode, initial={'after':'1'})
+        form = EpisodeForm(instance=episode)
         return render(request, 'episode/episode_edit.html', {'form': form, 'request': request})
     else:
         form = EpisodeForm(request.POST, instance=episode)
