@@ -55,7 +55,7 @@
         </a>
     {% endif %}
     <br/>
-    {{ episode.content }}
+    {{ episode.content |safe }}
     <hr/>
     {% include '_comment.html' %}
 {% endblock %}
