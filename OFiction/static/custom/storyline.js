@@ -3,9 +3,10 @@ $(document).ready(function () {
 
     var min_size = 20; var max_size = 200; var proportion = 10;
 
-    function randomRGB(){
-        return "rgb(" + (Math.random()*255 | 0).toString()
-            + "," + (Math.random()*255 | 0).toString() + "," + (Math.random()*255 | 0).toString() + ")";
+    function calculateColorBasedOnSentiment(sentiment){
+        var adjusted_sentiment = Math.floor((parseFloat(sentiment) + 0.99) * 5);
+        var colors = ["#D4253F", "#D24525", "#D07D26", "#CEB426", "#AECC26", "#76CA27", "#40C827", "#28C644", "#28C477", "#29C2AA"];
+        return colors[adjusted_sentiment];
     }
 
     function episodeInformation(id, summary) {
@@ -93,7 +94,7 @@ $(document).ready(function () {
             var id = value.id;
             node.data["id"] = value.id;
             node.data["label"] = value.title;
-            node.data["color"] = randomRGB();
+            node.data["color"] = calculateColorBasedOnSentiment(value.sentiment);
             node.data["summary"] = episodeInformation(id, value.summary);
             node.data["popularity"] = Math.min(min_size+proportion*Math.log2(value.popularity+2),max_size);
             cy.add(node);

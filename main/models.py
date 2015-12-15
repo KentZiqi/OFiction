@@ -118,6 +118,7 @@ class Episode(models.Model):
     created_date = models.DateTimeField(default=datetime.datetime.now)
     summary = models.CharField(blank=True, null=True, max_length=1000)
     popularity = models.IntegerField(default=0)
+    sentiment = models.DecimalField(decimal_places=5, max_digits=6, default=0)
 
     def previous_ids_without_parent(self):
         previous_list = list(self.children.filter(after=False))
@@ -152,6 +153,19 @@ class Episode(models.Model):
     def unstar(self, profile):
         self.stars.remove(profile)
         self.popularity = len(self.stars.all())
+
+    def calculate_sentiment(self):
+        import requests
+        url = 'http://text-processing.com/api/sentiment/'
+        response = requests.post(url, data= {"text": self.summary})
+        if response.status_code == 200:
+            json = response.json()
+            positive = json['probability']['pos']
+            negative = json['probability']['neg']
+            score = positive - negative
+            return score
+        else:
+            return 0 # Default to 0
 
     def __str__(self):
         return "#" + str(self.getID()) + ": " + self.fiction.title + "/" + self.title

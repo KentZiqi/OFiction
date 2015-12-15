@@ -72,6 +72,7 @@ def episode_create(request, fiction_id, parent_id):
             new_episode.fiction = fiction
             new_episode.parent = parent
             new_episode.author = request.user.profile
+            new_episode.sentiment = new_episode.calculate_sentiment()
             new_episode.save()
             return redirect(reverse("episode", kwargs={'episode_id': new_episode.id}))
         else:
@@ -89,7 +90,9 @@ def episode_edit(request, episode_id):
     else:
         form = EpisodeForm(request.POST, instance=episode)
         if form.is_valid():
-            form.save()
+            episode = form.save(commit=False)
+            episode.sentiment = episode.calculate_sentiment()
+            episode.save()
             return redirect(reverse("episode", kwargs={'episode_id': episode_id}))
         else:
             return render(request, 'episode/episode_edit.html', {'form': form, 'request': request})
