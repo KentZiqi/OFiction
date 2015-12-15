@@ -1,22 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static "custom/jquery.qtip.min.css" %}"/>
-{% endblock %}
-
-{% block javascript %}
-    <script src="{% static "js/cytoscape.min.js" %}"></script>
-    <script src="{% static "js/dagre.min.js" %}"></script>
-    <script src="{% static "js/cytoscape-dagre.js" %}"></script>
-    <script src="{% static "js/jquery.qtip.min.js" %}"></script>
-    <script src="{% static "js/cytoscape-qtip.js" %}"></script>
-    <script src="{% static "js/jsonQ.min.js" %}"></script>
-{% endblock %}
-
 {% block body %}
-    <h1>{{ fiction.title }}</h1>
-    <div id="cy"></div>
-    <div id="fiction_id" class="hidden">{{ fiction_id }}</div>
-    <script src="{% static "custom/storyline.js" %}"></script>
+{{ episodes }}
 {% endblock %}

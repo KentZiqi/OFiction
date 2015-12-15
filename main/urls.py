@@ -18,9 +18,11 @@ urlpatterns = patterns('',
                        url(r'^episode/(?P<episode_id>\d+)/edit/?$', episode_edit, name='episode_edit'),
 
                        url(r'^explore/?$', explore, name='explore'),
-                       url(r'^fiction/(?P<fiction_id>\d+)/?$', fiction, name='fiction'),
 
+                       url(r'^fiction/(?P<fiction_id>\d+)/?$', fiction, name='fiction'),
                        url(r'^fiction/new/?$', FictionCreate.as_view(), name='create_fiction'),
+
+                       url(r'^storyline/(?P<episode_id>\d+)/?$', storyline, name='storyline'),
 
                        url(r'^comment/(?P<episode_id>\d+)/?', comment_create, name="comment_create"),
                        url(r'^star/(?P<episode_id>\d+)/?', star, name="star"),

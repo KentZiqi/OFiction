@@ -13,7 +13,9 @@ $(document).ready(function () {
             "<div class='margin20'></div>" +
             "<a href='/episode/" + id + "'><div class='btn btn-default'>Expand in episode view</div></a>" +
             "<div class='margin10'></div>" +
-            "<a href='/episode/new/" + fiction_id + "/" + id + "'><div class='btn btn-default'>Evolve this episode</div></a>";
+            "<a href='/episode/new/" + fiction_id + "/" + id + "'><div class='btn btn-default'>Evolve this episode</div></a>"+
+            "<div class='margin10'></div>" +
+            "<a href='/storyline/" + id + "/" +  "'><div class='btn btn-default'>View Storyline from Beginning</div></a>";
     }
 
     var cy = window.cy = cytoscape({

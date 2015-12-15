@@ -2,6 +2,10 @@
 {% load static %}
 
 {% block body %}
+    <a href="{% url 'create_fiction' %}">
+        <button class="btn btn-default btn-primary pull-right">New Story</button>
+    </a>
+
     <h1>Trending Stories</h1>
     <br/>
     <ul class="list-group">

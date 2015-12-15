@@ -114,7 +114,16 @@ def explore(request):
 
 def fiction(request, fiction_id):
     fiction = get_object_or_404(Fiction, pk=fiction_id)
-    return render(request, 'storyline.html', {'fiction': fiction,'fiction_id':fiction_id})
+    return render(request, 'fiction.html', {'fiction': fiction,'fiction_id':fiction_id})
+
+def storyline(request, episode_id):
+    episode = get_object_or_404(Episode, pk=episode_id)
+    episodes = [episode]
+    episode = episode.parent
+    while episode:
+        episodes.insert(0,episode)
+        episode = episode.parent
+    return render(request,'storyline.html',{'episodes':episodes})
 
 def settings(request):
     return render(request, 'settings.html', {})
