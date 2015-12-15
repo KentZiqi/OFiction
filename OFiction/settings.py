@@ -27,6 +27,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'bootstrap3_sass',
     'rest_framework',
+    'ckeditor',
     'compressor',
     'widget_tweaks',
     'django_extensions',

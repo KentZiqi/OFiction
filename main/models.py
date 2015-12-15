@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
+from ckeditor.fields import RichTextField
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True)
@@ -105,10 +106,10 @@ class Episode(models.Model):
     duplicate = models.ForeignKey("self", related_name="duplicates", null=True, blank=True)
     title = models.CharField(max_length=200)
     author = models.ForeignKey(Profile)
-    content = models.TextField(default="This episode is empty")
+    content = RichTextField(default="This episode is empty")
     stars = models.ManyToManyField(Profile, related_name="favorites")
     created_date = models.DateTimeField(default=datetime.datetime.now)
-    summary = models.TextField(blank=True, null=True)
+    summary = models.CharField(blank=True, null=True, max_length=1000)
     popularity = models.IntegerField(default=0)
 
     def previous_ids_without_parent(self):

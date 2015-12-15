@@ -4,6 +4,7 @@
 {% block body %}
     <form method="POST" action="">
         {% csrf_token %}
+        {{ form.media }}
         {% for field in form %}
             {% if field|widget_type == "select" %}
                 <label for="name">{{ field.label }}:</label>
