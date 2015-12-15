@@ -133,10 +133,10 @@ def generate_pdf(episode, episodes):
     pdf = HTMLPDF()
     pdf.add_page()
     for episode in episodes:
-        pdf.write_html("<h1>" + episode.title + "</h1>")
-        pdf.write_html(episode.content)
-    pdf_name = urllib.parse.quote(episode.fiction.title) + '_' + ''.join(
-        [str(episode.id) for episode in episodes])
+        title_html  = ("<h1>" + episode.title + "</h1>").encode('utf8').decode('latin1')
+        pdf.write_html(title_html)
+        pdf.write_html(episode.content.encode('utf8').decode('latin1'))
+    pdf_name = urllib.parse.quote(episode.fiction.title) + '_' + ''.join([str(episode.id) for episode in episodes])
     pdf.output(os.path.join(django_settings.MEDIA_ROOT, 'fictions', pdf_name + '.pdf'), 'F')
     return pdf_name
 
