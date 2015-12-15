@@ -172,16 +172,6 @@ class Episode(models.Model):
     def __str__(self):
         return "#" + str(self.getID()) + ": " + self.fiction.title + "/" + self.title
 
-class EpisodeVersion(models.Model):
-    episode = models.ForeignKey(Episode)
-
-    content = models.TextField()
-    created_date = models.DateTimeField(default=datetime.datetime.now)
-
-    # TODO: Add query to recover version
-    def __str__(self):
-        return "Episode " + str(self.episode) + " version X"
-
 class Comment(models.Model):
     commenter = models.ForeignKey(Profile)
     episode = models.ForeignKey(Episode)
