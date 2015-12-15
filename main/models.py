@@ -98,6 +98,13 @@ class Fiction(models.Model):
     def __str__(self):
         return self.title + " by " + ([str(author) + ", " for author in self.starters.all()][0])
 
+    def popularity(self):
+        popularity = 0
+        episodes = Episode.objects.filter(fiction=self)
+        for episode in episodes:
+            popularity += episode.popularity
+        return popularity
+
 class Episode(models.Model):
     fiction = models.ForeignKey(Fiction)
 

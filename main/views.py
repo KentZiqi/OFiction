@@ -1,7 +1,7 @@
 from django.forms import ModelForm, ChoiceField, Select
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-from main.models import Comment, Fiction, Episode, Profile
+from main.models import Comment, Fiction, Episode, Profile, Genre
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic.edit import CreateView
 
@@ -105,7 +105,12 @@ def star(request, episode_id):
     return redirect(reverse("episode", kwargs={'episode_id': episode_id}))
 
 def explore(request):
-    return render(request, 'explore.html', {})
+    fictions = dict()
+    genres = Genre.objects.all()
+    for genre in genres:
+        fics = list(Fiction.objects.filter(genre=genre))
+        fictions[genre] = sorted(fics,key=lambda x: x.popularity(), reverse=True)
+    return render(request, 'explore.html', {'fictions':fictions,'genres':genres})
 
 def storyline(request, fiction_id):
     fiction = get_object_or_404(Fiction, pk=fiction_id)

@@ -5,27 +5,19 @@
     <h1>Trending Stories</h1>
     <br/>
     <ul class="list-group">
+    {% for genre,genre_fictions in fictions.items %}
         <li class="list-group-item">
         <ul class="list-group">
-            <h2>Adventure</h2>
+            <h2>{{ genre.name }}</h2>
+            {% for fiction in genre_fictions %}
             <li class="list-group-item">
-                <a href="#">Kent/NVC/Episode-4</a>
-                <span style="float: right">60 Stars</span>
+                <a href="#">{{ fiction.title }}</a>
+                <span style="float: right">{{ fiction.popularity }}</span>
             </li>
+            {% endfor %}
         </ul>
         </li>
         <li class="list-group-item">
-        <ul class="list-group">
-            <h2>Science Fiction</h2>
-            <li class="list-group-item">
-                <a href="#">Kent/Star-Wars/Episode-1</a>
-                <span style="float: right">55 Stars</span>
-            </li>
-            <li class="list-group-item">
-                <a href="#">Kent/Star-Trek/Episode-1</a>
-                <span style="float: right">30 Stars</span>
-            </li>
-        </ul>
-        </li>
+    {% endfor %}
     </ul>
 {% endblock %}
