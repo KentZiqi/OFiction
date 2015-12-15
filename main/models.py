@@ -156,8 +156,10 @@ class Episode(models.Model):
 
     def calculate_sentiment(self):
         import requests
+        from bs4 import BeautifulSoup
         url = 'http://text-processing.com/api/sentiment/'
-        response = requests.post(url, data= {"text": self.summary})
+        summary_and_content_as_text = self.summary + BeautifulSoup(self.content).text;
+        response = requests.post(url, data= {"text": summary_and_content_as_text})
         if response.status_code == 200:
             json = response.json()
             positive = json['probability']['pos']
@@ -165,7 +167,7 @@ class Episode(models.Model):
             score = positive - negative
             return score
         else:
-            return 0 # Default to 0
+            return 0 # Default to neutral
 
     def __str__(self):
         return "#" + str(self.getID()) + ": " + self.fiction.title + "/" + self.title
