@@ -2,5 +2,14 @@
 {% load static %}
 
 {% block body %}
-{{ episodes }}
+    <h2>{{ fiction.title }}</h2>
+    <a href="{% url 'fiction' fiction.id %}">
+            <button class="btn btn-default btn-primary">Back to fiction tree</button>
+    </a>
+    {% for episode in episodes %}
+        <hr>
+        <h3><a href="{% url 'episode' episode.id %}">{{ episode.title }}</a></h3>
+        <p>{{ episode.author }} | {{episode.created_date}}</p>
+        {{ episode.content|safe }}
+    {% endfor %}
 {% endblock %}
