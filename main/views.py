@@ -129,14 +129,19 @@ from fpdf import FPDF, HTMLMixin
 class HTMLPDF(FPDF, HTMLMixin):
     pass
 
-def generate_pdf(episode, episodes):
+def generate_pdf(current_episode, episodes):
     pdf = HTMLPDF()
     pdf.add_page()
+    fiction_html = ("<h1 align='center'>" + current_episode.fiction.title + "</h1>").encode('utf8').decode('latin1')
+    pdf.write_html(fiction_html)
+    author_html = ("<p align='right'>Originally Started By " + current_episode.fiction.starter.display_name + "</p>").encode('utf8').decode('latin1')
+    pdf.write_html(author_html)
     for episode in episodes:
-        title_html  = ("<h1>" + episode.title + "</h1>").encode('utf8').decode('latin1')
+        title_html  = ("<h2>" + episode.title + "</h2>").encode('utf8').decode('latin1')
         pdf.write_html(title_html)
         pdf.write_html(episode.content.encode('utf8').decode('latin1'))
-    pdf_name = urllib.parse.quote(episode.fiction.title) + '_' + ''.join([str(episode.id) for episode in episodes])
+        pdf.write_html("<br />")
+    pdf_name = urllib.parse.quote(current_episode.fiction.title) + '_' + ''.join([str(episode.id) for episode in episodes])
     pdf.output(os.path.join(django_settings.MEDIA_ROOT, 'fictions', pdf_name + '.pdf'), 'F')
     return pdf_name
 
