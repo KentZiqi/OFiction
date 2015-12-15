@@ -1,6 +1,8 @@
 $(document).ready(function () {
     var fiction_id = $('#fiction_id').text();
 
+    var min_size = 20; var max_size = 200; var proportion = 10;
+
     function randomRGB(){
         return "rgb(" + (Math.random()*255 | 0).toString()
             + "," + (Math.random()*255 | 0).toString() + "," + (Math.random()*255 | 0).toString() + ")";
@@ -91,7 +93,7 @@ $(document).ready(function () {
             node.data["label"] = value.title;
             node.data["color"] = randomRGB();
             node.data["summary"] = episodeInformation(id, value.summary);
-            node.data["popularity"] = value.popularity * 5 + 15; // TODO: Improve algorithm relating bubble size to popularity
+            node.data["popularity"] = Math.min(min_size+proportion*Math.log2(value.popularity+2),max_size);
             cy.add(node);
             jsonQ.each(value.previous_ids_without_parent, function (key, value) {
                 var edge = {group: "edges", data: {}};
