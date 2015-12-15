@@ -2,30 +2,27 @@
 {% load static %}
 
 {% block body %}
-    <div class="text-center">
-        <h2><a href="{% url 'fiction' fiction.id %}">{{ fiction.title }}</a></h2>
-    </div>
-
-
-
+    <h1><a href="{% url 'fiction' fiction.id %}">{{ fiction.title }}</a></h1>
+    <br/>
     {% for episode in episodes %}
-    <div class="panel-group">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-              <div class="text-center">
-                  <a data-toggle="collapse" href="#{{ episode.id }}">{{ episode.title }}</a>
-              </div>
-          </h4>
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <a class="ofiction-panel" data-toggle="collapse" href="#{{ episode.id }}">
+                    <div class="ofiction-panel-heading panel-heading">
+                        <h4 class="ofiction-panel-header">
+                            {{ episode.title }}
+                        </h4>
+                        <p>{{ episode.summary }}</p>
+                    </div>
+                </a>
+                <div id="{{ episode.id }}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>{{ episode.author }} | {{ episode.created_date }}</p>
+                        {{ episode.content|safe }}
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="{{ episode.id }}" class="panel-collapse collapse">
-          <div class="panel-body">
-              <p>{{ episode.author }} | {{episode.created_date}}</p>
-              {{ episode.content|safe }}
-          </div>
-        </div>
-      </div>
-    </div>
     {% endfor %}
 
 
