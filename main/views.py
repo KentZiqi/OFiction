@@ -57,7 +57,7 @@ class EpisodeForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EpisodeForm, self).__init__(*args, **kwargs)
-        self.fields['after'].label = 'Where does this episode come sequentially?'
+        self.fields['after'].label = 'Where does this episode come sequentially? (99% of the time it will be "After")'
 
 def episode_create(request, fiction_id, parent_id):
     fiction = Fiction.objects.get(id=fiction_id)
@@ -107,8 +107,8 @@ def star(request, episode_id):
 def explore(request):
     return render(request, 'explore.html', {})
 
-def storyline(request):
-    return render(request, 'storyline.html', {})
+def storyline(request, fiction_id):
+    return render(request, 'storyline.html', {'fiction_id': fiction_id})
 
 def settings(request):
     return render(request, 'settings.html', {})

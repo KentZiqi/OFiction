@@ -8,6 +8,7 @@
             {% if field|widget_type == "select" %}
                 <label for="name">{{ field.label }}:</label>
                 {% render_field field class+="form-control margin10 btn-ofiction-form" placeholder=field.label %}
+                <div>Note 99% of the time you want to choose After</div>
                 <div class="margin20">{{ field.errors.0 }}</div>
             {% else %}
                 <div class="form-group">

@@ -17,21 +17,17 @@
         <div class="btn-group">
             <a id='evolve-url' href="{% url 'episode_create' episode.fiction.id episode.id %}"></a>
             <button type="button" id="evolve-btn" class="btn btn-default">Evolve</button>
-            <button type="button" class="btn btn-default">{{ evolve_count }}</button>
-        </div>
-        <div class="btn-group">
-            <a href="{% url 'storyline' %}">
-                <button class="btn btn-default btn-success">See entire storyline</button>
-            </a>
         </div>
     </div>
     <h1>{{ episode }}</h1>
     <div class="row">
         <div class="col-md-6">
-            <h3>Previous Episodes</h3>
-            {% for previous in previous_list %}
-                <a href="{% url 'episode' previous.id %}">{{ previous }}</a>
-            {% endfor %}
+            <div class="text-center">
+                <h3>Previous Episodes</h3>
+                {% for previous in previous_list %}
+                    <div><a href="{% url 'episode' previous.id %}">{{ previous }}</a></div>
+                {% endfor %}
+            </div>
         </div>
         <div class="col-md-6">
             <h3>Next Episodes</h3>
@@ -39,6 +35,12 @@
                 <div><a href="{% url 'episode' next.id %}">{{ next }}</a></div>
             {% endfor %}
         </div>
+    </div>
+    <br />
+    <div class="nounderline">
+        <a href="{% url 'storyline' episode.fiction.id %}">
+            <button class="btn btn-default btn-primary center-block">See entire storyline</button>
+        </a>
     </div>
     <hr/>
     {% if request.user.profile.id == episode.author.id %}

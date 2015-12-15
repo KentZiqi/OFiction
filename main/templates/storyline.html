@@ -12,9 +12,10 @@
     <script src="{% static "js/jquery.qtip.min.js" %}"></script>
     <script src="{% static "js/cytoscape-qtip.js" %}"></script>
     <script src="{% static "js/jsonQ.min.js" %}"></script>
-    <script src="{% static "custom/storyline.js" %}"></script>
 {% endblock %}
 
 {% block body %}
     <div id="cy"></div>
+    <div id="fiction_id" class="hidden">{{ fiction_id }}</div>
+    <script src="{% static "custom/storyline.js" %}"></script>
 {% endblock %}

@@ -8,14 +8,7 @@
     <ul class="list-group">
         {% for fiction in fictions %}
             <li class="list-group-item">
-            <!-- Decide functionality of this button (Will it create the latest episode of the fiction or a continuation of the current user's last episode?)
-            <a href="">
-                <button class="btn btn-default btn-primary pull-right">New Episode</button>
-            </a>
-            -->
-
-            <h2>{{ fiction.title }}</h2>
-
+            <a href="{% url 'storyline' fiction.id %}"><h2>{{ fiction.title }}</h2></a>
             <div class="margin20"></div>
             <ul class="list-group">
                 {% for episode in episodes %}
