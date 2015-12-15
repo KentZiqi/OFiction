@@ -112,7 +112,7 @@ def explore(request):
         fictions[genre] = sorted(fics,key=lambda x: x.popularity(), reverse=True)
     return render(request, 'explore.html', {'fictions':fictions,'genres':genres})
 
-def storyline(request, fiction_id):
+def fiction(request, fiction_id):
     fiction = get_object_or_404(Fiction, pk=fiction_id)
     return render(request, 'storyline.html', {'fiction': fiction,'fiction_id':fiction_id})
 
