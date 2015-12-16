@@ -2,22 +2,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'llavo^#cai60ovaf!5*m$6azyfm0kkf+4g4b1$ek9f7eo98%ba'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEMPLATE_DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -63,9 +48,7 @@ DATABASES = {
 
 STATIC_URL = '/static/'
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
-STATIC_ROOT = os.path.join(ENV_PATH, 'static')
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(ENV_PATH, 'media')
 
 LOGIN_URL = "/login/"
 LOGOUT_URL = "/logout/"
