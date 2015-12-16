@@ -91,4 +91,3 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
