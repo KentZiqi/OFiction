@@ -1,0 +1,82 @@
+[
+  {
+    "pk": 1,
+    "fields": {"name": "Classic"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 2,
+    "fields": {"name": "Crime/Detective"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 3,
+    "fields": {"name": "Drama"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 4,
+    "fields": {"name": "Fable"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 5,
+    "fields": {"name": "Fairy Tale"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 6,
+    "fields": {"name": "Fantasy"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 7,
+    "fields": {"name": "Folklore"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 8,
+    "fields": {"name": "Historical Fiction"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 9,
+    "fields": {"name": "Horror"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 10,
+    "fields": {"name": "Humor"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 11,
+    "fields": {"name": "Metafiction"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 12,
+    "fields": {"name": "Mythology"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 13,
+    "fields": {"name": "Realistic Fiction"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 14,
+    "fields": {"name": "Science Fiction"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 15,
+    "fields": {"name": "Short Story"},
+    "model": "main.genre"
+  },
+  {
+    "pk": 16,
+    "fields": {"name": "Suspense/Thriller"},
+    "model": "main.genre"
+  }
+]
