@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm, EmailInput, PasswordInput
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from main.models import ProfilePhoto, Profile
@@ -11,7 +12,7 @@ from main.models import ProfilePhoto, Profile
 def profile_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
     """
     Decorator for views that checks that the user is logged in and has an associated profile, redirecting
-    to the log-in page if necessary.
+    to the log-@user_passes_test()in page if necessary.
     """
     actual_decorator = user_passes_test(
         lambda u: u.is_authenticated() and hasattr(u, "profile"),
@@ -90,7 +91,11 @@ class LoginView(View):
             user = form.login()
             if user:
                 do_login(request, user)
-                return redirect(reverse('home'))
+                next = request.GET['next']
+                if next:
+                    return HttpResponseRedirect(next)
+                else:
+                    return redirect(reverse('home'))
         else:
             return render(request, 'login.html', {'form': form})
 

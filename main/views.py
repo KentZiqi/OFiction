@@ -4,6 +4,7 @@ from django.conf import settings as django_settings
 from django.forms import ModelForm, ChoiceField, Select
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from main.account_views import profile_required
 from main.models import Comment, Fiction, Episode, Profile, Genre
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic.edit import CreateView
@@ -28,13 +29,14 @@ def episode(request, episode_id):
     episode = Episode.objects.get(id=episode_id)
     evolve_count = len(episode.children.all())
     commentForm = CommentForm()
-    starred = request.user.profile in episode.stars.all()
+    starred = request.user.profile in episode.stars.all() if hasattr(request.user,"profile") else False
     previous = episode.previous()
     next = episode.next()
     return render(request, 'episode/episode.html',
                   {'episode': episode, 'previous_list': previous, 'next_list': next, 'starred': starred,
                    'evolve_count': evolve_count, 'commentForm': commentForm})
 
+@profile_required
 def comment_create(request, episode_id):
     comment = CommentForm(request.POST)
     episode = get_object_or_404(Episode, pk=episode_id)
@@ -64,6 +66,7 @@ class EpisodeForm(ModelForm):
         super(EpisodeForm, self).__init__(*args, **kwargs)
         self.fields['after'].label = 'Where does this episode come sequentially? (99% of the time it will be "After")'
 
+@profile_required
 def episode_create(request, fiction_id, parent_id):
     fiction = Fiction.objects.get(id=fiction_id)
     parent = Episode.objects.get(id=parent_id)
@@ -85,6 +88,7 @@ def episode_create(request, fiction_id, parent_id):
                 'form': form, 'request': request
             })
 
+@profile_required
 def episode_edit(request, episode_id):
     episode = get_object_or_404(Episode, pk=episode_id)
     if request.user.profile.id != episode.author.id:
@@ -102,6 +106,7 @@ def episode_edit(request, episode_id):
         else:
             return render(request, 'episode/episode_edit.html', {'form': form, 'request': request})
 
+@profile_required
 def star(request, episode_id):
     episode = get_object_or_404(Episode, pk=episode_id)
     profile = request.user.profile

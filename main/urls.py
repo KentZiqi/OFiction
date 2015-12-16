@@ -20,7 +20,7 @@ urlpatterns = patterns('',
                        url(r'^explore/?$', explore, name='explore'),
 
                        url(r'^fiction/(?P<fiction_id>\d+)/?$', fiction, name='fiction'),
-                       url(r'^fiction/new/?$', FictionCreate.as_view(), name='create_fiction'),
+                       url(r'^fiction/new/?$', profile_required(FictionCreate.as_view()), name='create_fiction'),
 
                        url(r'^storyline/(?P<episode_id>\d+)/?$', storyline, name='storyline'),
 
