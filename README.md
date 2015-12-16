@@ -1,6 +1,10 @@
 # OFiction 
 
-The purpose of Open Source Fiction (OFiction in short) is to pool together the creativity and diversity of people around the world to build unique stories. Maybe you have a great idea for a single character but no idea of how the character would fit into a story. Or maybe you have an idea for a unique plot twist but no idea of how you can incorporate it into a storyline. Or maybe you have a great first chapter to a book but simply do not have time to write the rest. OFiction is a place in which users can put forward these fragmented ideas, develop on other's ideas, and ultimately come to create a work of fiction that no one could have accomplished on their own.
+The purpose of Open Source Fiction (OFiction in short) is to pool together the creativity and diversity of people around the world to build unique stories. 
+Maybe you have an idea for a unique plot twist but no idea of how you can incorporate it into a storyline. 
+Or maybe you have a great first chapter to a book but simply do not have time to write the rest.
+Or maybe you want to share a different ending of a famous classic.
+OFiction is a place in which users can put forward these fragmented ideas, develop on other's ideas, and ultimately come to create a work of fiction that no one could have accomplished on their own.
 
 ## History
 
