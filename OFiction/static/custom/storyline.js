@@ -52,8 +52,8 @@ $(document).ready(function () {
                                                    'width': 4,
                                                    'opacity': 0.4,
                                                    'target-arrow-shape': 'triangle',
-                                                   'line-color': '#4971b5',
-                                                   'target-arrow-color': '#4971b5'
+                                                   'line-color': '#666',
+                                                   'target-arrow-color': '#666'
                                                }
                                            }
                                        ]
