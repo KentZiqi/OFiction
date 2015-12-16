@@ -111,6 +111,15 @@ def episode_edit(request, episode_id):
             return render(request, 'episode/episode_edit.html', {'form': form, 'request': request})
 
 @profile_required
+def episode_disown(request, episode_id):
+    episode = get_object_or_404(Episode, pk=episode_id)
+    if request.user.profile.id == episode.author.id:    
+        ghost = Profile.objects.get(pk=1)
+        episode.author = ghost
+        episode.save()
+    return redirect(reverse("episode", kwargs={'episode_id': episode_id}))
+
+@profile_required
 def star(request, episode_id):
     episode = get_object_or_404(Episode, pk=episode_id)
     profile = request.user.profile

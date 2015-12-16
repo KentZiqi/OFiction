@@ -16,6 +16,7 @@ urlpatterns = patterns('',
                        url(r'^episode/new/(?P<fiction_id>\d+)/(?P<parent_id>\d+)/?$', episode_create,
                            name='episode_create'),
                        url(r'^episode/(?P<episode_id>\d+)/edit/?$', episode_edit, name='episode_edit'),
+                       url(r'^episode/(?P<episode_id>\d+)/disown/?$', episode_disown, name='episode_disown'),
 
                        url(r'^explore/?$', explore, name='explore'),
 

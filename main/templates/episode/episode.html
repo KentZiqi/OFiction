@@ -26,6 +26,11 @@
                     <button class="btn btn-default btn-primary pull-right">Edit Episode</button>
                 </a>
             </div>
+            <div class="btn-group">
+                <a href="{% url 'episode_disown' episode.id %}">
+                    <button class="btn btn-default btn-danger pull-right">Disown</button>
+                </a>
+            </div>
         {% endif %}
     </div>
     <h1>{{ episode }}</h1>
