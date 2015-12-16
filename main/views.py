@@ -184,7 +184,9 @@ class FictionCreate(CreateView):
     def form_valid(self, form):
         user = self.request.user
         profile = Profile.objects.get(user=user)
-        self.object = form.save()
+        self.object = form.save(commit=False)
+        self.object.starter = profile
+        self.object.save()
         root = Episode(fiction=self.object, title="Edit Me", summary="Add your summary here", author=profile)
         root.save()
         fiction = Fiction.objects.get(pk=self.object.pk)
