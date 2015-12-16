@@ -18,7 +18,8 @@
                 </a>
                 <div id="{{ episode.id }}" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <p>{{ episode.author }} | {{ episode.created_date }}</p>
+                        <p><a href="{% url 'profile' episode.author.id %}">{{ episode.author }}</a>
+                            | {{ episode.created_date }}</p>
                         {{ episode.content|safe }}
                     </div>
                 </div>

@@ -30,6 +30,6 @@ urlpatterns = patterns('',
                        url(r'^star/(?P<episode_id>\d+)/?', star, name="star"),
 
 
-                       url(r'^profile/?$', profile_required(profile), name='profile'),
+                       url(r'^profile/(?P<profile_id>\d+)?$', profile_required(profile), name='profile'),
                        url(r'^profile/edit/?$', profile_required(ProfileEditView.as_view()), name='edit_profile'),
 )

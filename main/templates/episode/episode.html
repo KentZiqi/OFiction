@@ -63,6 +63,8 @@
         </a>
     </div>
     <hr/>
+    <p><a href="{% url 'profile' episode.author.id %}">{{ episode.author }}</a>
+                            | {{ episode.created_date }}</p>
     {{ episode.content |safe }}
     <hr/>
     {% include '_comment.html' %}

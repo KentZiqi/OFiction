@@ -1,10 +1,10 @@
 from django.forms import ModelForm
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
-from main.models import Profile, ProfilePhoto
+from main.models import Profile, ProfilePhoto, User
 
-def profile(request):
-    profile = Profile.objects.get(user=request.user)
+def profile(request,profile_id):
+    profile = get_object_or_404(Profile, id=profile_id)
     profile_preview = profile.picture.thumbnail.url
     return render(request, 'profile.html', {"user": profile, "preview_url": profile_preview})
 

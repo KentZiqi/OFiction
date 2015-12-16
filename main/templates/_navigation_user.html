@@ -31,7 +31,7 @@
                        aria-expanded="false">Manage Account <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li class="{% active_nav request '' %}"><a href="{% url 'home' %}">Your Works</a></li>
-                        <li class="{% active_nav request 'profile' %}"><a href="{% url 'profile' %}">Your Profile</a></li>
+                        <li class="{% active_nav request 'profile' %}"><a href="{% url 'profile' request.user.profile.id %}">Your Profile</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{% url 'logout' %}">Sign Out</a></li>
                     </ul>
