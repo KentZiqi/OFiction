@@ -91,7 +91,7 @@ class LoginView(View):
             user = form.login()
             if user:
                 do_login(request, user)
-                next = request.GET['next']
+                next = request.GET['next'] if hasattr(request.GET, "next") else None
                 if next:
                     return HttpResponseRedirect(next)
                 else:
