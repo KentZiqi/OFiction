@@ -58,7 +58,7 @@ class RegistrationView(View):
             user.set_password(request.POST['password'])
             user.save()
             picture = ProfilePhoto.objects.create()
-            Profile.objects.create(user=user, picture=picture)
+            Profile.objects.create(user=user, picture=picture,display_name="newbie")
             return redirect(reverse('login'))
         return render(request, 'sign_up.html', {'form': registerForm})
 
