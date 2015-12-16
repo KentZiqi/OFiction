@@ -31,6 +31,6 @@ urlpatterns = patterns('',
 
                        url(r'^search/$', search_query, name='search'),
 
-                       url(r'^profile/(?P<profile_id>\d+)?$', profile_required(profile), name='profile'),
+                       url(r'^profile/(?P<profile_id>\d+)?$', profile, name='profile'),
                        url(r'^profile/edit/?$', profile_required(ProfileEditView.as_view()), name='edit_profile'),
 )
