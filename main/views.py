@@ -95,7 +95,10 @@ def episode_edit(request, episode_id):
         return redirect(reverse("episode", kwargs={'episode_id': episode_id}))
     if request.method == 'GET':
         form = EpisodeForm(instance=episode)
-        return render(request, 'episode/episode_edit.html', {'form': form, 'request': request})
+        is_root = False
+        if episode.fiction.root.id == episode.id:
+           is_root = True
+        return render(request, 'episode/episode_edit.html', {'form': form, 'is_root': is_root})
     else:
         form = EpisodeForm(request.POST, instance=episode)
         if form.is_valid():

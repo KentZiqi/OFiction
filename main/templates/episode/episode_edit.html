@@ -7,13 +7,15 @@
         {% csrf_token %}
         {% for field in form %}
             {% if field|widget_type == "select" %}
-                <label for="name">{{ field.label }}</label>
-                {% render_field field class+="form-control margin10 btn-ofiction-form" placeholder=field.label %}
-                <div class="margin20">{{ field.errors.0 }}</div>
+                {% if not is_root %}
+                    <label for="name">{{ field.label }}</label>
+                    {% render_field field class+="form-control margin10 btn-ofiction-form" placeholder=field.label %}
+                    <div class="margin20">{{ field.errors.0 }}</div>
+                {% endif %}
             {% else %}
                 <div class="form-group">
                     <label for="name">{{ field.label }}</label>
-                    <br />
+                    <br/>
                     {% render_field field class+="form-control margin10" placeholder=field.label %}
                     <div class="margin20">{{ field.errors.0 }}</div>
                 </div>
