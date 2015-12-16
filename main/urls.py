@@ -32,6 +32,4 @@ urlpatterns = patterns('',
 
                        url(r'^profile/?$', profile_required(profile), name='profile'),
                        url(r'^profile/edit/?$', profile_required(ProfileEditView.as_view()), name='edit_profile'),
-
-                       url(r'^settings/?$', settings, name='settings'),
 )

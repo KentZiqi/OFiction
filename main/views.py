@@ -172,9 +172,6 @@ def pdf(request, pdf_name):
         return response
     pdf.closed
 
-def settings(request):
-    return render(request, 'settings.html', {})
-
 class FictionCreate(CreateView):
     model = Fiction
     fields = ["genre", "title", "created_date"]
