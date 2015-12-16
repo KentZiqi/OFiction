@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Search Results for {{ word }}
+{% endblock %}
+
+{% block body %}
+    <h1>Search Results for '{{ word }}'</h1>
+    <br/>
+    {% for result in qs %}
+        <ul class="list-group">
+            <li class="list-group-item">
+                <h2>{{ result.object.title }}</h2>
+                <br/>
+                {{ result.object.content | safe }}
+            </li>
+        </ul>
+    {% empty %}
+        <p>No results found.</p>
+    {% endfor %}
+{% endblock %}
+

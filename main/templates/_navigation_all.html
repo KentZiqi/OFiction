@@ -18,9 +18,9 @@
             <ul class="nav navbar-nav">
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <form class="navbar-form navbar-left" role="search">
+                <form class="navbar-form navbar-left" role="search" action="{% url 'search' %}">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="">
+                        <input name="query" type="text" class="form-control" placeholder="">
                     </div>
                     <button type="submit" class="btn btn-default">Search</button>
                 </form>

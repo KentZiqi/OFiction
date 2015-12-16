@@ -1,0 +1,5 @@
+{{ object.title }}
+{{ object.summary }}
+{{ object.author.display_name }}
+{{ object.fiction.title }}
+{{ object.content|striptags }}

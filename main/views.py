@@ -4,6 +4,7 @@ from django.conf import settings as django_settings
 from django.forms import ModelForm, ChoiceField, Select
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from haystack.query import SearchQuerySet
 from main.account_views import profile_required
 from main.models import Comment, Fiction, Episode, Profile, Genre
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -190,3 +191,9 @@ class FictionCreate(CreateView):
         fiction.root = root
         fiction.save()
         return HttpResponseRedirect(self.get_success_url())
+
+from django.db.models import Q
+def search_query(request):
+    query = request.GET['query']
+    query_set = SearchQuerySet().filter(Q(content=query))
+    return render(request, "search/search.html", {"word": query, "qs": query_set})
