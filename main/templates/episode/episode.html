@@ -18,6 +18,13 @@
             <a id='evolve-url' href="{% url 'episode_create' episode.fiction.id episode.id %}"></a>
             <button type="button" id="evolve-btn" class="btn btn-default">Evolve</button>
         </div>
+        {% if request.user.profile.id == episode.author.id %}
+            <div class="btn-group">
+                <a href="{% url 'episode_edit' episode.id %}">
+                    <button class="btn btn-default btn-primary pull-right">Edit Episode</button>
+                </a>
+            </div>
+        {% endif %}
     </div>
     <h1>{{ episode }}</h1>
     <div class="row">
@@ -49,19 +56,13 @@
     <br/>
     <div class="text-center nounderline">
         <a href="{% url 'fiction' episode.fiction.id %}">
-            <button class="btn btn-default btn-primary">View entire fiction tree</button>
+            <button class="btn btn-default btn-primary">View all storylines</button>
         </a>
-         <a href="{% url 'storyline' episode.id %}">
-            <button class="btn btn-default btn-primary">View storyline from Beginning</button>
+        <a href="{% url 'storyline' episode.id %}">
+            <button class="btn btn-default btn-primary">Read story from beginning</button>
         </a>
     </div>
     <hr/>
-    {% if request.user.profile.id == episode.author.id %}
-        <a href="{% url 'episode_edit' episode.id %}">
-            <button class="btn btn-default btn-primary pull-right">Edit Episode</button>
-        </a>
-    {% endif %}
-    <br/>
     {{ episode.content |safe }}
     <hr/>
     {% include '_comment.html' %}
