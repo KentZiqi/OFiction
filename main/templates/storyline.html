@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}Storyline of {{ fiction.title }}{% endblock %}
+
 {% block body %}
     <a href="{% url 'pdf' pdf_name %}"><button type="button" class="btn btn-default btn-primary pull-right">Generate PDF</button></a>
     <h1><a href="{% url 'fiction' fiction.id %}">{{ fiction.title }}</a></h1>

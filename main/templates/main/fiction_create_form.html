@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 
+{% block title %}Create New Fiction{% endblock %}
+
 {% block body %}
     <form method="POST" action="">
         {% csrf_token %}

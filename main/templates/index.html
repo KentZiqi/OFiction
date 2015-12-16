@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}OFiction{% endblock %}
+
 {% block body %}
     {% if request.user.profile %}
         {% include '_index_user.html' %}

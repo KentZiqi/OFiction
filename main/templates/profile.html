@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}{{ user.display_name }}'s Profile{% endblock %}
+
 {% block body %}
     <div class="profile-wrapper">
         <div class="edit_button"><a href="{% url 'edit_profile' %}"><button class="btn btn-default btn-primary pull-right">Edit Profile</button></a></div>

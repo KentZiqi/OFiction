@@ -5,6 +5,8 @@
     <link rel="stylesheet" type="text/css" href="{% static "custom/jquery.qtip.min.css" %}"/>
 {% endblock %}
 
+{% block title %}Graph of {{ fiction.title }}{% endblock %}
+
 {% block javascript %}
     <script src="{% static "js/cytoscape.min.js" %}"></script>
     <script src="{% static "js/dagre.min.js" %}"></script>
