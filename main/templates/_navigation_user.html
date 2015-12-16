@@ -1,3 +1,4 @@
+{% load navigation_tags %}
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -23,16 +24,16 @@
                     </div>
                     <button type="submit" class="btn btn-default">Search</button>
                 </form>
-                <li><a href="{% url 'explore' %}">Explore</a></li>
+                <li class="{% active_nav request 'explore' %}"><a href="{% url 'explore' %}">Explore</a></li>
                 <!-- <li class="active"><a href="{% url 'notifications' %}">Notifications <span class="sr-only">(current)</span></a></li> -->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Manage Account <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{% url 'home' %}">Your Works</a></li>
-                        <li><a href="{% url 'profile' %}">Your Profile</a></li>
+                        <li class="{% active_nav request '' %}"><a href="{% url 'home' %}">Your Works</a></li>
+                        <li class="{% active_nav request 'profile' %}"><a href="{% url 'profile' %}">Your Profile</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="{% url 'settings' %}">Settings</a></li>
+                        <li class="{% active_nav request 'settings' %}"><a href="{% url 'settings' %}">Settings</a></li>
                         <li><a href="{% url 'logout' %}">Sign Out</a></li>
                     </ul>
                 </li>
