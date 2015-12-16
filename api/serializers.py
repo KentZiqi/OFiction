@@ -7,11 +7,11 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ('id', 'display_name')
 
 class FictionSerializer(serializers.ModelSerializer):
-    starters = ProfileSerializer(many=True)
+    starter = ProfileSerializer()
 
     class Meta:
         model = Fiction
-        fields = ('id', 'title', 'starters', 'created_date')
+        fields = ('id', 'title', 'starter', 'created_date')
 
 class EpisodeSummarySerializer(serializers.ModelSerializer):
     class Meta:
