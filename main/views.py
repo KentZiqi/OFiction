@@ -113,7 +113,7 @@ def episode_edit(request, episode_id):
 @profile_required
 def episode_disown(request, episode_id):
     episode = get_object_or_404(Episode, pk=episode_id)
-    if request.user.profile.id == episode.author.id:    
+    if request.user.profile.id == episode.author.id:
         ghost = Profile.objects.get(pk=1)
         episode.author = ghost
         episode.save()
