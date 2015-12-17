@@ -10,7 +10,7 @@
     {% for result in qs %}
         <ul class="list-group">
             <li class="list-group-item">
-                <h2>{{ result.object.title }}</h2>
+                <a href="{% url 'episode' result.object.id %}"><h2>{{ result.object.title }}</h2></a>
                 <br/>
                 {{ result.object.content | safe }}
             </li>
